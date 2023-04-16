@@ -1,6 +1,4 @@
 { pkgs, ... }:
-let username = "user";
-in
 {
   imports = [
     # Based on the user user

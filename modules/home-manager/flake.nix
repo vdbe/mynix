@@ -6,7 +6,7 @@
     myconfig.flake = false;
   };
 
-  outputs = inputs@{ ... }:
+  outputs = _:
     {
       homeManagerModules = {
         default = import ./.;

@@ -1,7 +1,7 @@
 {
   description = "My nixos modules";
 
-  outputs = { ... }:
+  outputs = _:
     {
       nixosModules = {
         default = import ./.;

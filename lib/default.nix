@@ -1,12 +1,11 @@
 { lib, ... }:
 let
-  inherit (builtins) baseNameOf dirOf elemAt getAttr hasAttr pathExists readDir split;
+  inherit (builtins) baseNameOf dirOf elemAt getAttr hasAttr pathExists split;
   inherit (lib) nixosSystem types;
-  inherit (lib.attrsets) filterAttrs mapAttrs' nameValuePair optionalAttrs;
   inherit (lib.modules) mkDefault;
   inherit (lib.options) mkOption;
   inherit (lib.sources) pathIsDirectory;
-  inherit (lib.strings) hasPrefix hasSuffix removeSuffix;
+  inherit (lib.strings) removeSuffix;
 in
 rec {
   getAttrWithDefault = default: attr: set:
@@ -23,7 +22,7 @@ rec {
     config.allowUnfree = true;
   };
 
-  mkHost = defaultConfigurationPath: configurationPath: pkgs: specialArgs @ { ... }:
+  mkHost = defaultConfigurationPath: configurationPath: pkgs: specialArgs:
     let
       isDir = pathIsDirectory configurationPath;
       configurationDir = if isDir then configurationPath else (dirOf configurationPath);
@@ -69,7 +68,7 @@ rec {
 
   mkHomeLib = lib: inputs: lib.extend (_self: _super: inputs.home-manager.lib);
 
-  mkExtraSpecialArgs = systemConfig: args@{ self, pkgs, lib, mylib, inputs, system }: {
+  mkExtraSpecialArgs = systemConfig: { self, pkgs, lib, mylib, inputs, system }: {
     inherit systemConfig self pkgs mylib system inputs;
     lib = mkHomeLib lib inputs;
   };

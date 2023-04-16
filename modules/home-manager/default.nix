@@ -1,4 +1,4 @@
-{ ... }:
+_:
 let
   modules = [
     ./programs/cli/bash.nix

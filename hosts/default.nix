@@ -1,6 +1,5 @@
 { self, pkgs, lib, mylib, inputs, ... }:
 let
-  inherit (lib.modules) mkDefault;
   inherit (mylib) mkHost;
 
   defaultConfiguration = ./configuration.nix;
@@ -11,7 +10,7 @@ let
     let
       specialArgs = defaultSpecialArgs // extraSpecialArgs;
     in
-    (mkHost defaultConfiguration configurationPath pkgs specialArgs);
+    mkHost defaultConfiguration configurationPath pkgs specialArgs;
 in
 {
   local = mkHost' ./localVM { hostName = "local"; };

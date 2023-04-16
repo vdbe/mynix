@@ -1,4 +1,4 @@
-{ self, config, pkgs, lib, ... }:
+{ self, pkgs, lib, ... }:
 
 let
   inherit (lib.modules) mkDefault;

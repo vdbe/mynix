@@ -4,7 +4,7 @@ let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  tmuxConfig = (inputs.myconfig + /tmux);
+  tmuxConfig = inputs.myconfig + /tmux;
 
   cfg = config.modules.programs.cli.tmux;
 in
@@ -18,7 +18,7 @@ in
       enable = true;
     };
 
-    xdg.configFile."tmux/tmux.conf".source = (tmuxConfig + "tmux.conf");
-    xdg.configFile."tmux/theme.conf".source = (tmuxConfig + "theme.conf");
+    xdg.configFile."tmux/tmux.conf".source = tmuxConfig + "tmux.conf";
+    xdg.configFile."tmux/theme.conf".source = tmuxConfig + "theme.conf";
   };
 }

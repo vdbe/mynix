@@ -44,7 +44,6 @@
   outputs =
     inputs@{ self
     , nixpkgs
-    , nixpkgs-unstable
     , systems
     , mypackages
     , mynixosmodules
@@ -53,9 +52,8 @@
     let
       inherit (nixpkgs.lib.attrsets) genAttrs;
       inherit (inputs.mylib.lib) mkPkgs;
-      inherit (nixpkgs.lib.modules) mkDefault;
 
-      lib = nixpkgs.lib;
+      inherit (nixpkgs) lib;
       mylib = inputs.mylib.lib;
 
       forAllSystems = genAttrs (import systems);
@@ -70,10 +68,10 @@
 
       # TODO: integrate myoverlays
       overlays = {
-        my = final: prev: {
+        my = final: _prev: {
           my = mypackages.packages.${final.system};
         };
-        unstable = final: prev: {
+        unstable = final: _prev: {
           unstable = pkgs'.${final.system};
         };
       };

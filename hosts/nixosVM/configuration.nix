@@ -2,10 +2,6 @@
 
 let
   inherit (mylib) mkExtraSpecialArgs;
-  homeConfigurations = import inputs.myhomemanager {
-    inherit self pkgs lib mylib inputs system;
-    systemConfig = config;
-  };
 in
 {
   imports = [

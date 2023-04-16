@@ -59,7 +59,7 @@
     mynixos.inputs.myhomemanager.follows = "myhomemanager";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, systems, ... }:
+  outputs = inputs@{ self, nixpkgs, systems, ... }:
     let
       inherit (nixpkgs.lib.attrsets) genAttrs;
       inherit (inputs.mylib.lib) mkPkgs;
@@ -82,12 +82,12 @@
       inherit (inputs.mynixos) nixosConfigurations;
       inherit (inputs.myhomemanager) homeConfigurations;
 
-      lib = inputs.mylib.lib;
+      inherit (inputs.mylib) lib;
 
       formatter = forAllSystems (system: pkgs.${system}.nixpkgs-fmt);
 
       overlays = import ./overlays { extraPackages = self.packages; } // {
-        my = final: prev: {
+        my = final: _prev: {
           my = self.packages.${final.system};
         };
       };

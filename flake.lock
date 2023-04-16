@@ -168,7 +168,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-sQESqhUGq4qSUzMKCRXyibyVBZ9A40VW2JGU7UTjZfA=",
+        "narHash": "sha256-TCvexKQ1J5oXAwBAWIpQdMH2/PrctCWZbTc5kcVTzLA=",
         "path": "./hosts",
         "type": "path"
       },
