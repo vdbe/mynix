@@ -2,6 +2,7 @@ _:
 let
   modules = [
     ./misc/nix.nix
+    ./misc/nix-path.nix
     ./misc/sops.nix
     ./misc/yubikey.nix
     ./programs/cli/bash.nix

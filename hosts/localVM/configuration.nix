@@ -1,6 +1,7 @@
 { self, config, pkgs, lib, mylib, inputs, system, ... }:
 
 let
+  inherit (lib.modules) mkDefault;
   inherit (mylib) mkExtraSpecialArgs;
 in
 {
@@ -8,14 +9,8 @@ in
     inputs.home-manager.nixosModules.home-manager
   ];
 
-  modules = {
-    services = {
-      openssh.enable = true;
-      fail2ban.enable = true;
-    };
-    nix.enable = true;
-    programs.cli.bash.enable = true;
-  };
+
+  networking.useDHCP = true;
 
   users = {
     mutableUsers = true;
@@ -46,18 +41,18 @@ in
     }
   ];
 
-  home-manager = {
-    useUserPackages = true;
-    useGlobalPkgs = true;
-    users.user = {
-      imports = [
-        (inputs.myhomemanager + /home.nix)
-        (inputs.myhomemanager + /user/home.nix)
-      ];
-    };
-    extraSpecialArgs = mkExtraSpecialArgs config {
-      inherit self lib mylib pkgs inputs system;
-    };
-  };
+  #home-manager = {
+  #  useUserPackages = true;
+  #  useGlobalPkgs = true;
+  #  users.user = {
+  #    imports = [
+  #      (inputs.myhomemanager + /home.nix)
+  #      (inputs.myhomemanager + /user/home.nix)
+  #    ];
+  #  };
+  #  extraSpecialArgs = mkExtraSpecialArgs config {
+  #    inherit self lib mylib pkgs inputs system;
+  #  };
+  #};
 }
 

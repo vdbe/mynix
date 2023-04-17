@@ -23,6 +23,7 @@ in
 
   time.timeZone = mkDefault "Europe/Brussels";
   i18n.defaultLocale = mkDefault "en_US.UTF-8";
+  nix.nixPath = mkDefault [ ];
 
   networking = {
     firewall.enable = mkDefault true;

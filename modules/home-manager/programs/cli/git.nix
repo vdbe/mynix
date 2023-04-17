@@ -1,8 +1,8 @@
 { config, options, lib, mylib, ... }:
 
 let
-  inherit (lib.modules) mkIf;
   inherit (lib.attrsets) optionalAttrs;
+  inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
   cfg = config.modules.programs.cli.git;

@@ -21,6 +21,10 @@ in
   modules = {
     sops.enable = true;
     nix.enable = true;
+    nix-path = {
+      enable = true;
+      overlays.enable = true;
+    };
     yubikey.enable = true;
     services = {
       openssh.enable = true;

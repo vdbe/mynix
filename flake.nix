@@ -29,6 +29,9 @@
     mypackages.inputs.systems.follows = "systems";
     mypackages.inputs.nixpkgs.follows = "nixpkgs";
 
+    myoverlays.url = "path:./overlays";
+    myoverlays.flake = false;
+
     mynixosmodules.url = "path:./modules/nixos";
 
     myhomemanagermodules.url = "path:./modules/home-manager";
@@ -55,6 +58,7 @@
     mynixos.inputs.mysecrets.follows = "mysecrets";
     mynixos.inputs.mylib.follows = "mylib";
     mynixos.inputs.mypackages.follows = "mypackages";
+    mynixos.inputs.myoverlays.follows = "myoverlays";
     mynixos.inputs.mynixosmodules.follows = "mynixosmodules";
     mynixos.inputs.myhomemanager.follows = "myhomemanager";
   };
@@ -86,10 +90,12 @@
 
       formatter = forAllSystems (system: pkgs.${system}.nixpkgs-fmt);
 
-      overlays = import ./overlays { extraPackages = self.packages; } // {
+      # TODO:
+      overlays = /* import ./overlays { extraPackages = self.packages; } // */ {
         my = final: _prev: {
           my = self.packages.${final.system};
         };
       };
+
     };
 }

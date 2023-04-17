@@ -14,4 +14,6 @@ let
 in
 {
   user = mkUser' ./user { };
+  "user@aragog" = mkUser' (./. + "/user@aragog") { };
+  "user@buckbeak" = mkUser' (./. + "/user@buckbeak") { };
 }

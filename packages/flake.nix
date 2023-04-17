@@ -11,7 +11,8 @@
   };
 
   outputs =
-    { flake-utils
+    { self
+    , flake-utils
     , nixpkgs
     , systems
     , ...
@@ -32,6 +33,8 @@
           pkgs = mkPkgs system nixpkgs;
         }
       );
+
+      legacyPackages = self.packages;
     };
 }
 

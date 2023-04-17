@@ -86,7 +86,7 @@ rec {
         # get everything _before_ last '@' (readability at its finest)
         (builtins.elemAt
           (builtins.elemAt
-            (builtins.split "^(.+?.@)@.*"
+            (builtins.split "^(.+?.)@.*"
               (baseNameOf (if isDir then configurationDir else configurationPath))
             )
             1)

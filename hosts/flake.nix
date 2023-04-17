@@ -29,6 +29,9 @@
     mypackages.inputs.nixpkgs.follows = "nixpkgs";
     mypackages.inputs.systems.follows = "systems";
 
+    myoverlays.url = "path:../overlays";
+    myoverlays.flake = false;
+
     mynixosmodules.url = "path:../modules/nixos";
 
     myhomemanager.url = "path:../users";
@@ -44,6 +47,7 @@
   outputs =
     inputs@{ self
     , nixpkgs
+    , nixpkgs-unstable
     , systems
     , mypackages
     , mynixosmodules
@@ -74,6 +78,7 @@
         unstable = final: _prev: {
           unstable = pkgs'.${final.system};
         };
+        test = import ./overlay.nix;
       };
 
 
