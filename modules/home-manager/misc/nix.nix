@@ -1,8 +1,7 @@
-{ config, pkgs, lib, mylib, inputs, ... }:
+{ config, pkgs, lib, mylib, ... }:
 let
   inherit (lib) types;
-  inherit (lib.attrsets) optionalAttrs;
-  inherit (lib.modules) mkIf mkDefault;
+  inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption;
   inherit (mylib) mkBoolOpt;
 
@@ -57,15 +56,7 @@ in
         max-free = ${toString (1024 * 1024 * 1024)}
       '';
 
-      nixPath = mkDefault [ ];
-
-
-      gc = {
-        automatic = true;
-        persistent = true;
-        dates = "weekly";
-        options = "--delete-older-than 30d";
-      };
+      package = pkgs.nix;
 
       settings = {
         trusted-users = [ "root" "@wheel" ];

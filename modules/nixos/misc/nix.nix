@@ -1,7 +1,6 @@
-{ config, pkgs, lib, mylib, inputs, ... }:
+{ config, lib, mylib, ... }:
 let
   inherit (lib) types;
-  inherit (lib.attrsets) optionalAttrs;
   inherit (lib.modules) mkIf mkDefault;
   inherit (lib.options) mkOption;
   inherit (mylib) mkBoolOpt;

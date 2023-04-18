@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> { }, lib ? pkgs.lib, ... }:
 let
-  inherit (lib.attrsets) filterAttrs nameValuePair;
+  inherit (lib.attrsets) filterAttrs;
 
   allSystems = [
     "aarch64-darwin"
@@ -33,7 +33,7 @@ let
       (sum // {
         "${pathStr}" = val;
       })
-    else if val ? recurseForDerivations && val.recurseForDerivations == true then
+    else if val ? recurseForDerivations && val.recurseForDerivations then
     # builtins.trace "${pathStr} is a recursive"
     # recurse into that attribute set
       (recurse sum path val)
@@ -48,10 +48,10 @@ let
       sum
       (builtins.attrNames val);
 
-  flattenTree = tree: recurse { } [ ] tree;
+  flattenTree = recurse { } [ ];
 
   # Everything that nix flake check requires for the packages output
-  sieve = n: v:
+  sieve = _n: v:
     with v;
     let
       inherit (builtins) isAttrs;
@@ -65,7 +65,7 @@ let
     isDerivation v && !isBroken && (builtins.elem system platforms) &&
     !(builtins.elem system badPlatforms);
 
-  filterPackages = packages: filterAttrs sieve packages;
+  filterPackages = filterAttrs sieve;
 
 in
 filterPackages (flattenTree packages)

@@ -9,7 +9,7 @@
   outputs = _:
     {
       homeManagerModules = {
-        default = import ./.;
+        default = import (builtins.path { path = ./.; name = "myhomemanagermodules"; });
       };
     };
 

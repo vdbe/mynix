@@ -20,6 +20,9 @@
     mypackages.inputs.nixpkgs.follows = "nixpkgs";
     mypackages.inputs.systems.follows = "systems";
 
+    myoverlays.url = "path:../overlays";
+    myoverlays.flake = false;
+
     myhomemanagermodules.url = "path:../modules/home-manager";
     myhomemanagermodules.inputs.myconfig.follows = "myconfig";
   };
@@ -34,6 +37,7 @@
     , ...
     }:
     let
+      inherit (builtins) path;
       inherit (nixpkgs.lib.attrsets) genAttrs;
       inherit (inputs.mylib.lib) mkPkgs;
 
@@ -58,7 +62,7 @@
         };
       };
 
-      homeConfigurations = import ./. {
+      homeConfigurations = import (path { path = ./.; name = "myhomemanager"; }) {
         inherit self pkgs lib mylib inputs;
       };
 

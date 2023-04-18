@@ -1,5 +1,6 @@
 { self, pkgs, lib, mylib, inputs, ... }:
 let
+  inherit (lib.attrsets) recursiveUpdate;
   inherit (mylib) mkHost;
 
   defaultConfiguration = ./configuration.nix;
@@ -8,7 +9,7 @@ let
 
   mkHost' = configurationPath: extraSpecialArgs:
     let
-      specialArgs = defaultSpecialArgs // extraSpecialArgs;
+      specialArgs = recursiveUpdate defaultSpecialArgs extraSpecialArgs;
     in
     mkHost defaultConfiguration configurationPath pkgs specialArgs;
 in

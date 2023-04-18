@@ -2,6 +2,7 @@
 let
   inherit (lib) lists;
   inherit (lib.modules) mkIf;
+  inherit (lib.strings) concatStringsSep;
   inherit (mylib) mkBoolOpt;
 
   cfg = config.modules.nix-path;
@@ -20,11 +21,14 @@ in
 
     overlays.enable = mkBoolOpt false;
 
-    # TODO: option to append to nix.nixPath
+    # TODO: option to append to nixPath
   };
 
-  config = mkIf cfg.enable
-    {
-      nix.nixPath = nixPath;
+  config = mkIf cfg.enable {
+    home = {
+      sessionVariables = {
+        NIX_PATH = concatStringsSep ":" nixPath;
+      };
     };
+  };
 }

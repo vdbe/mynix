@@ -1,9 +1,5 @@
-{ self, config, pkgs, lib, mylib, inputs, system, ... }:
+{ pkgs, inputs, ... }:
 
-let
-  inherit (lib.modules) mkDefault;
-  inherit (mylib) mkExtraSpecialArgs;
-in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager

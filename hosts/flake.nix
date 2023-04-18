@@ -35,13 +35,14 @@
     mynixosmodules.url = "path:../modules/nixos";
 
     myhomemanager.url = "path:../users";
-    myhomemanager.inputs.systems.follows = "systems";
-    myhomemanager.inputs.nixpkgs.follows = "nixpkgs";
-    myhomemanager.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
-    myhomemanager.inputs.home-manager.follows = "home-manager";
-    myhomemanager.inputs.myconfig.follows = "myconfig";
-    myhomemanager.inputs.mylib.follows = "mylib";
-    myhomemanager.inputs.mypackages.follows = "mypackages";
+    myhomemanager.inputs.systems.follows = "";
+    myhomemanager.inputs.nixpkgs.follows = "";
+    myhomemanager.inputs.nixpkgs-unstable.follows = "";
+    myhomemanager.inputs.home-manager.follows = "";
+    myhomemanager.inputs.myconfig.follows = "";
+    myhomemanager.inputs.mylib.follows = "";
+    myhomemanager.inputs.mypackages.follows = "";
+    myhomemanager.inputs.myoverlays.follows = "";
   };
 
   outputs =
@@ -54,6 +55,7 @@
     , ...
     }:
     let
+      inherit (builtins) path;
       inherit (nixpkgs.lib.attrsets) genAttrs;
       inherit (inputs.mylib.lib) mkPkgs;
 
@@ -82,7 +84,7 @@
       };
 
 
-      nixosConfigurations = import ./. {
+      nixosConfigurations = import (path { path = ./.; name = "mynixos"; }) {
         inherit self pkgs lib mylib inputs;
       };
 

@@ -4,7 +4,7 @@
   outputs = _:
     {
       nixosModules = {
-        default = import ./.;
+        default = import (builtins.path { path = ./.; name = "myhomemanagermodules"; });
       };
     };
 

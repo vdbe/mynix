@@ -5,14 +5,10 @@
     systems.url = "github:vdbe/nix-systems";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    flake-utils.url = "github:numtide/flake-utils";
-    flake-utils.inputs.systems.follows = "";
   };
 
   outputs =
     { self
-    , flake-utils
     , nixpkgs
     , systems
     , ...
@@ -28,8 +24,7 @@
     in
     {
       packages = forAllSystems (system:
-        import ./. {
-          inherit flake-utils;
+        import (builtins.path { path = ./.; name = "mypackages"; }) {
           pkgs = mkPkgs system nixpkgs;
         }
       );

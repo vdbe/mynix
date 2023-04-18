@@ -7,7 +7,7 @@
 
   outputs = { nixpkgs-lib, ... }:
     {
-      lib = import ./. { inherit (nixpkgs-lib) lib; };
+      lib = import (builtins.path { path = ./.; name = "mylib"; }) { inherit (nixpkgs-lib) lib; };
     };
 
 }

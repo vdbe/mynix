@@ -10,6 +10,10 @@
     home-manager.url = "github:nix-community/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixpkgs";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     sops-nix.url = "github:Mic92/sops-nix";
@@ -45,6 +49,7 @@
     myhomemanager.inputs.myconfig.follows = "myconfig";
     myhomemanager.inputs.mylib.follows = "mylib";
     myhomemanager.inputs.mypackages.follows = "mypackages";
+    myhomemanager.inputs.myoverlays.follows = "myoverlays";
     myhomemanager.inputs.myhomemanagermodules.follows = "myhomemanagermodules";
 
     mynixos.url = "path:./hosts";
@@ -65,10 +70,15 @@
 
   outputs = inputs@{ self, nixpkgs, systems, ... }:
     let
+      inherit (builtins) path;
       inherit (nixpkgs.lib.attrsets) genAttrs;
       inherit (inputs.mylib.lib) mkPkgs;
 
       mylib = inputs.mylib.lib;
+      mynix = path {
+        path = ./.;
+        name = "mynix";
+      };
 
       forAllSystems = genAttrs (import systems);
 
@@ -88,6 +98,17 @@
 
       inherit (inputs.mylib) lib;
 
+      checks = forAllSystems (system: {
+        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+          src = mynix;
+          hooks = {
+            deadnix.enable = true;
+            nixpkgs-fmt.enable = true;
+            statix.enable = true;
+          };
+        };
+      });
+
       formatter = forAllSystems (system: pkgs.${system}.nixpkgs-fmt);
 
       # TODO:
@@ -96,6 +117,21 @@
           my = self.packages.${final.system};
         };
       };
+
+      devShells = forAllSystems (system:
+        let pkgs' = pkgs.${system}; in
+        {
+          default = pkgs'.mkShell {
+            buildInputs = with pkgs'; [
+              nixos-rebuild
+              statix
+              deadnix
+            ];
+            shellHook = ''
+              ${self.checks.${system}.pre-commit-check.shellHook}
+            '';
+          };
+        });
 
     };
 }

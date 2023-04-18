@@ -17,6 +17,7 @@ in
       xe-guest-utilities.enable = true;
     };
     nix.enable = true;
+    nix-path.enable = true;
     yubikey.enable = true;
     programs.cli = {
       bash.enable = true;
