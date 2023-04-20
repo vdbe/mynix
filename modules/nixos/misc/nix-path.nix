@@ -26,6 +26,8 @@ in
 
   config = mkIf cfg.enable {
     nix.nixPath = nixPath;
+    # TODO: look at nix.registry.<name>.flake
+    # TODO: look at nixpkgs.overlays
     system.extraSystemBuilderCmds = ''
       ln -sv ${pkgs.path} $out/nixpkgs
 
@@ -35,6 +37,5 @@ in
       ln -sv ${inputs.myoverlays} $out/myoverlays
       ''}
     '';
-    # TODO: checkout nixpkgs.overlays
   };
 }

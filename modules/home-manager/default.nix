@@ -1,6 +1,7 @@
 _:
 let
   modules = [
+    ./desktops/gnome.nix
     ./misc/nix-path.nix
     ./misc/nix.nix
     ./misc/xdg.nix

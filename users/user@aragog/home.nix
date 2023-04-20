@@ -9,14 +9,19 @@
   #programs.home-manager.enable = true;
 
   modules = {
-    programs.cli = {
-      bat.enable = true;
-      exa.enable = true;
-      git.enable = true;
-      gpg.enable = true;
-      htop.enable = true;
-      starship.enable = true;
-      tmux.enable = true;
+    programs = {
+      cli = {
+        bat.enable = true;
+        exa.enable = true;
+        git.enable = true;
+        gpg.enable = true;
+        htop.enable = true;
+        starship.enable = true;
+        tmux.enable = true;
+      };
+      desktop = {
+        #browsers.firefox.enable = true;
+      };
     };
   };
 

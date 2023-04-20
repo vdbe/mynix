@@ -18,6 +18,5 @@ in
   nixos01 = mkHost' ./nixosVM { hostName = "nixos01"; };
   nixos02 = mkHost' ./nixosVM { hostName = "nixos02"; };
 
-
   aragog = mkHost' ./aragog { };
 }

@@ -30,9 +30,14 @@ in
       openssh.enable = true;
       fail2ban.enable = true;
     };
-    programs.cli = {
-      fish.enable = true;
-      bash.enable = true;
+    programs = {
+      cli = {
+        fish.enable = true;
+        bash.enable = true;
+      };
+    };
+    desktops = {
+      gnome.enable = true;
     };
   };
 
@@ -70,10 +75,6 @@ in
       ];
     }
   ];
-
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
 
   home-manager = {
     useUserPackages = true;
