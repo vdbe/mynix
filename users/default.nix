@@ -1,13 +1,7 @@
 { self, pkgs, lib, mylib, inputs, systemConfig ? { }, ... }:
 let
-  inherit (builtins) path;
   inherit (lib.attrsets) recursiveUpdate;
   inherit (mylib) mkUser;
-
-  cwd = path {
-    path = ./.;
-    name = "myhomemanager";
-  };
 
   defaultConfiguration = ./home.nix;
 
@@ -20,7 +14,7 @@ let
     mkUser defaultConfiguration configurationPath pkgs extraSpecialArgs';
 in
 {
-  user = mkUser' cwd + "/user" { };
-  "user@aragog" = mkUser' (cwd + "/user@aragog") { };
-  "user@buckbeak" = mkUser' (cwd + "/user@buckbeak") { };
+  user = mkUser' ./user { };
+  "user@aragog" = mkUser' (./user + "@aragog") { };
+  "user@buckbeak" = mkUser' (./user + "@buckbeak") { };
 }

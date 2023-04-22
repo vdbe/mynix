@@ -81,20 +81,27 @@ rec {
       configurationDir = if isDir then configurationPath else (dirOf configurationPath);
       configuration = if isDir then configurationDir + "/home.nix" else configurationPath;
 
-      username = getAttrWithDefault
-        # default
-        # get everything _before_ last '@' (readability at its finest)
-        (builtins.elemAt
-          (builtins.elemAt
-            (builtins.split "^(.+?.)@.*"
-              (baseNameOf (if isDir then configurationDir else configurationPath))
-            )
-            1)
-          0)
-        # attr
-        "username"
-        # set
-        extraSpecialArgs';
+      username =
+        let
+          # get everything _before_ last '@' (readability at its finest)
+          at_split = builtins.split "^(.+?.)@.*"
+            (baseNameOf (if isDir then configurationDir else configurationPath));
+
+          # if no @ at_split length is 1 and elemAt 1 would fail
+          name =
+            if (builtins.length at_split) == 1
+            then
+              builtins.elemAt at_split 0
+            else
+              builtins.elemAt (builtins.elemAt at_split 1) 0;
+        in
+        getAttrWithDefault
+          # default
+          name
+          # attr
+          "username"
+          # set
+          extraSpecialArgs';
 
 
       system = getAttrWithDefault

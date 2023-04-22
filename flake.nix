@@ -71,7 +71,7 @@
   outputs = inputs@{ self, nixpkgs, systems, ... }:
     let
       inherit (builtins) path;
-      inherit (nixpkgs.lib.attrsets) genAttrs;
+      inherit (nixpkgs.lib.attrsets) genAttrs recursiveUpdate;
       inherit (inputs.mylib.lib) mkPkgs;
 
       mylib = inputs.mylib.lib;
@@ -108,6 +108,8 @@
           };
         };
       });
+
+      legacyPackages = recursiveUpdate self.packages inputs.myhomemanager.packages;
 
       formatter = forAllSystems (system: pkgs.${system}.nixpkgs-fmt);
 

@@ -25,6 +25,13 @@ in
   };
 
   config = mkIf cfg.enable {
+    #nixpkgs.config = {
+    #  # TODO: Figure this out
+    #  allowUnfreePredicate = _: true;
+    #  allowUnfree = true;
+    #  overlays = pkgs.overlays;
+    #};
+
     home = {
       sessionVariables = {
         NIX_PATH = concatStringsSep ":" nixPath;

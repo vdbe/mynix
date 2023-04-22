@@ -1,3 +1,4 @@
+#!/usr/bin/env sh
 generate_update_inputs() {
 	nix flake metadata "$1" --json | jq -r '.locks.nodes  | keys_unsorted[] | select(startswith("my"))' | awk -v d=" --update-input " '{s=(s d)$0}END{print s}'
 }
