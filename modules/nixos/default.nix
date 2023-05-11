@@ -13,6 +13,7 @@ let
     ./services/hardware/pcscd.nix
     ./services/networking/sshd.nix
     ./services/security/fail2ban.nix
+    ./services/web-servers/nginx.nix
     ./services/x11/xserver.nix
     ./virtualisation/xe-guest-utilities.nix
   ];

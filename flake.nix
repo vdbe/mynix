@@ -7,18 +7,32 @@
     nixpkgs.url = "nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
+    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils.inputs.systems.follows = "systems";
+
+    flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.flake = false;
+
     home-manager.url = "github:nix-community/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.utils.follows = "flake-utils";
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs-unstable";
     pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixpkgs";
+    pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
+    pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.inputs.nixpkgs-stable.follows = "nixpkgs";
+
+    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
+    deploy-rs.inputs.utils.follows = "flake-utils";
+    deploy-rs.inputs.flake-compat.follows = "flake-compat";
 
     myconfig.url = "path:./config";
     myconfig.flake = false;
@@ -85,6 +99,24 @@
       pkgs = forAllSystems (system: mkPkgs system nixpkgs [ self.overlays.my ]);
       #pkgs' = forAllSystems (system: mkPkgs system nixpkgs-unstable [ self.overlays.my ]);
 
+      deploy = forAllSystems
+        (system:
+          let
+            deployPkgs = mkPkgs system nixpkgs [
+              inputs.deploy-rs.overlay
+              (_self: super: {
+                deploy-rs = {
+                  inherit (pkgs.${system}) deploy-rs;
+                  inherit (super.deploy-rs) lib;
+                };
+              })
+            ];
+          in
+          {
+            inherit (deployPkgs.deploy-rs) lib;
+            bin = deployPkgs.deploy-rs.deploy-rs;
+          }
+        );
     in
     {
       inherit inputs;
@@ -98,16 +130,27 @@
 
       inherit (inputs.mylib) lib;
 
-      checks = forAllSystems (system: {
-        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-          src = mynix;
-          hooks = {
-            deadnix.enable = true;
-            nixpkgs-fmt.enable = true;
-            statix.enable = true;
-          };
+      apps = forAllSystems (system: {
+        default = self.apps.${system}.deploy;
+        deploy = {
+          type = "app";
+          program = "${deploy.${system}.bin}/bin/deploy";
         };
       });
+
+      checks = forAllSystems (system: recursiveUpdate
+        {
+          pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
+            src = mynix;
+            hooks = {
+              deadnix.enable = true;
+              nixpkgs-fmt.enable = true;
+              statix.enable = true;
+            };
+          };
+        }
+        (deploy.${system}.lib.deployChecks self.deploy)
+      );
 
       legacyPackages = recursiveUpdate self.packages inputs.myhomemanager.packages;
 
@@ -125,15 +168,78 @@
         {
           default = pkgs'.mkShell {
             buildInputs = with pkgs'; [
-              nixos-rebuild
-              statix
+              # Checks
               deadnix
+              nixpkgs-fmt
+              statix
+
+              # Deployment
+              deploy.${system}.bin
+              home-manager
+              nixos-rebuild
             ];
             shellHook = ''
-              ${self.checks.${system}.pre-commit-check.shellHook}
+              ${self.checks.${system}.pre-commit.shellHook}
             '';
           };
-        });
+        }
+      );
 
+
+      deploy.nodes = {
+        buckbeak = {
+          hostname = "buckbeak";
+          sshUser = "user";
+          profiles.user =
+            let
+              home = self.homeConfigurations."user@buckbeak";
+              inherit (home.pkgs) system;
+              user = home.config.home.username;
+            in
+            {
+              inherit user;
+              path = deploy.${system}.lib.activate.home-manager home;
+            };
+        };
+        aragog = {
+          hostname = "aragog";
+          sshUser = "root";
+          profiles.system =
+            let
+              nixosSystem = self.nixosConfigurations.aragog;
+              inherit (nixosSystem.pkgs) system;
+            in
+            {
+              user = "root";
+              path = deploy.${system}.lib.activate.nixos nixosSystem;
+            };
+        };
+        nixos01 = {
+          hostname = "nixos01.lab.home.arpa";
+          sshUser = "user";
+          profiles.system =
+            let
+              nixosSystem = self.nixosConfigurations.nixos02;
+              inherit (nixosSystem.pkgs) system;
+            in
+            {
+              user = "root";
+              path = deploy.${system}.lib.activate.nixos nixosSystem;
+            };
+        };
+        nixos02 = {
+          hostname = "nixos02.lab.home.arpa";
+          sshUser = "user";
+          profiles.system =
+            let
+              nixosSystem = self.nixosConfigurations.nixos02;
+              inherit (nixosSystem.pkgs) system;
+            in
+            {
+              user = "root";
+              path = deploy.${system}.lib.activate.nixos nixosSystem;
+            };
+        };
+      };
     };
 }

@@ -15,6 +15,7 @@ in
       openssh.enable = true;
       fail2ban.enable = true;
       xe-guest-utilities.enable = true;
+      nginx.enable = true;
     };
     nix.enable = true;
     nix-path.enable = true;
