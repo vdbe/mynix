@@ -18,7 +18,7 @@ in
     ];
   sops.secrets.hashed_password.neededForUsers = true;
 
-  modules = {
+  mymodules = {
     sops.enable = true;
     nix.enable = true;
     nix-path = {
@@ -46,8 +46,8 @@ in
     networkmanager.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-  ];
+  # environment.systemPackages = with pkgs; [
+  # ];
 
   users.users.user = {
     isNormalUser = true;
@@ -58,10 +58,8 @@ in
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBB774/7KJ/Y5k9jVF8YACJiyPKzU4PZs3brXbnMHtmq user@buckbeak"
     ];
 
-    packages = with pkgs; [
-      # firefox
-      # thunderbird
-    ];
+    # packages = with pkgs; [
+    # ];
   };
 
   security.sudo.extraRules = [

@@ -4,10 +4,10 @@ let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.xdg;
+  cfg = config.mymodules.xdg;
 in
 {
-  options.modules.xdg = {
+  options.mymodules.xdg = {
     enable = mkBoolOpt false;
   };
 

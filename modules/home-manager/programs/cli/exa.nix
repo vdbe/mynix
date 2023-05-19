@@ -5,11 +5,11 @@ let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
 
-  cfg = config.modules.programs.cli.exa;
+  cfg = config.mymodules.programs.cli.exa;
 in
 {
 
-  options.modules.programs.cli.exa = {
+  options.mymodules.programs.cli.exa = {
     enable =
       mkEnableOption "exa, a modern replacement for <command>ls</command>";
 
@@ -41,7 +41,7 @@ in
     # TODO: exa git (not yet in 22.11)
     git = mkOption {
       type = types.bool;
-      default = config.modules.programs.cli.git.enable;
+      default = config.mymodules.programs.cli.git.enable;
       description = ''
         List each file's Git status if tracked or ignored (<option>--git</option> argument).
       '';

@@ -4,10 +4,10 @@ let
   inherit (lib) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.programs.cli.starship;
+  cfg = config.mymodules.programs.cli.starship;
 in
 {
-  options.modules.programs.cli.starship = {
+  options.mymodules.programs.cli.starship = {
     enable = mkBoolOpt false;
   };
 

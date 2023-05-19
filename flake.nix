@@ -14,6 +14,7 @@
     flake-compat.flake = false;
 
     home-manager.url = "github:nix-community/home-manager/release-22.11";
+    #home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.utils.follows = "flake-utils";
 
@@ -88,7 +89,6 @@
       inherit (nixpkgs.lib.attrsets) genAttrs recursiveUpdate;
       inherit (inputs.mylib.lib) mkPkgs;
 
-      mylib = inputs.mylib.lib;
       mynix = path {
         path = ./.;
         name = "mynix";
@@ -177,6 +177,9 @@
               deploy.${system}.bin
               home-manager
               nixos-rebuild
+
+              # Dev
+              sops
             ];
             shellHook = ''
               ${self.checks.${system}.pre-commit.shellHook}

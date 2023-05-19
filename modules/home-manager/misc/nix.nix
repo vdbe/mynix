@@ -5,10 +5,10 @@ let
   inherit (lib.options) mkOption;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.nix;
+  cfg = config.mymodules.nix;
 in
 {
-  options.modules.nix = {
+  options.mymodules.nix = {
     enable = mkBoolOpt false;
 
     trusted-substituters = mkOption {

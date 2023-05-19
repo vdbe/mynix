@@ -4,10 +4,10 @@ let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.services.fail2ban;
+  cfg = config.mymodules.services.fail2ban;
 in
 {
-  options.modules.services.fail2ban = {
+  options.mymodules.services.fail2ban = {
     enable = mkBoolOpt false;
   };
 

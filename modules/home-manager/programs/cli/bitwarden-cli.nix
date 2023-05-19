@@ -4,10 +4,10 @@ let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.programs.cli.bitwarden-cli;
+  cfg = config.mymodules.programs.cli.bitwarden-cli;
 in
 {
-  options.modules.programs.cli.bitwarden-cli = {
+  options.mymodules.programs.cli.bitwarden-cli = {
     enable = mkBoolOpt false;
   };
 

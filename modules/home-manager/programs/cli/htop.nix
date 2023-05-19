@@ -5,9 +5,9 @@ let
   inherit (mylib) mkBoolOpt;
 in
 {
-  options.modules.programs.cli.htop = { enable = mkBoolOpt false; };
+  options.mymodules.programs.cli.htop = { enable = mkBoolOpt false; };
 
-  config = mkIf config.modules.programs.cli.htop.enable {
+  config = mkIf config.mymodules.programs.cli.htop.enable {
     programs.htop = {
       enable = true;
 

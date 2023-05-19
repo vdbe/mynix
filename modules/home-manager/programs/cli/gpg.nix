@@ -6,10 +6,10 @@ let
 
   gpgKeySource = inputs.myconfig + /gpg/pub.key;
 
-  cfg = config.modules.programs.cli.gpg;
+  cfg = config.mymodules.programs.cli.gpg;
 in
 {
-  options.modules.programs.cli.gpg = {
+  options.mymodules.programs.cli.gpg = {
     enable = mkBoolOpt false;
 
     # TODO: Option to provide key or to not import key
@@ -19,7 +19,7 @@ in
 
   config = mkIf cfg.enable {
     programs.gpg = {
-      enable = true;
+      enable = mkDefault true;
       mutableKeys = false;
       mutableTrust = false;
       publicKeys = [
@@ -30,6 +30,6 @@ in
       ];
     };
 
-    modules.services.gpg-agent.enable = mkDefault true;
+    mymodules.services.gpg-agent.enable = config.programs.gpg.enable;
   };
 }

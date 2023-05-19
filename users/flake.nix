@@ -48,12 +48,13 @@
 
       homeConfigurations = import (path { path = ./.; name = "myhomemanager"; }) {
         inherit self pkgs lib mylib inputs;
+        pkgs-unstable = pkgs';
       };
 
       activationPackages = genAttrs (builtins.attrNames self.homeConfigurations) (home: self.homeConfigurations.${home}.activationPackage);
 
       pkgs = forAllSystems (system: mkPkgs system nixpkgs [ self.overlays.my self.overlays.unstable ]);
-      pkgs' = forAllSystems (system: mkPkgs system nixpkgs-unstable [ self.overlays.my ]);
+      pkgs' = forAllSystems (system: mkPkgs system nixpkgs-unstable [ self.overlays.my self.overlays.unstable ]);
     in
     {
       inherit (myhomemanagermodules) homeManagerModules;

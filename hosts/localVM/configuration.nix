@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ inputs, ... }:
 
 {
   imports = [
@@ -18,10 +18,8 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBB774/7KJ/Y5k9jVF8YACJiyPKzU4PZs3brXbnMHtmq user@buckbeak"
       ];
 
-      packages = with pkgs; [
-        # firefox
-        # thunderbird
-      ];
+      #packages = with pkgs; [
+      #];
     };
   };
 

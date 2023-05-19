@@ -5,7 +5,7 @@ let
   inherit (lib.strings) concatStringsSep;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.nix-path;
+  cfg = config.mymodules.nix-path;
 
   nixPath = [ "nixpkgs=${pkgs.path}" ]
     ++ lists.optionals cfg.overlays.enable [
@@ -16,7 +16,7 @@ let
 
 in
 {
-  options.modules.nix-path = {
+  options.mymodules.nix-path = {
     enable = mkBoolOpt false;
 
     overlays.enable = mkBoolOpt false;

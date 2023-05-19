@@ -4,10 +4,10 @@ let
   inherit (lib.modules) mkIf mkDefault;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.services.xserver;
+  cfg = config.mymodules.services.xserver;
 in
 {
-  options.modules.services.xserver = {
+  options.mymodules.services.xserver = {
     enable = mkBoolOpt false;
   };
 

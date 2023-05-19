@@ -2,11 +2,11 @@
 
 let
 
-  cfg = config.modules.services.displayManager;
+  cfg = config.mymodules.services.displayManager;
 in
 {
   # TODO: Assert to check if their is only one displayManager active
-  options.modules.services.displayManager = {
+  options.mymodules.services.displayManager = {
     inherit (options.services.xserver.displayManager) defaultSession;
   };
 

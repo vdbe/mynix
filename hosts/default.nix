@@ -7,16 +7,16 @@ let
 
   defaultSpecialArgs = { inherit self lib mylib inputs; };
 
-  mkHost' = configurationPath: extraSpecialArgs:
+  mkHost' = configurationPath: pkgs': extraSpecialArgs:
     let
       specialArgs = recursiveUpdate defaultSpecialArgs extraSpecialArgs;
     in
-    mkHost defaultConfiguration configurationPath pkgs specialArgs;
+    mkHost defaultConfiguration configurationPath pkgs' specialArgs;
 in
 {
-  local = mkHost' ./localVM { hostName = "local"; };
-  nixos01 = mkHost' ./nixosVM { hostName = "nixos01"; };
-  nixos02 = mkHost' ./nixosVM { hostName = "nixos02"; };
+  local = mkHost' ./localVM pkgs { hostName = "local"; };
+  nixos01 = mkHost' ./nixosVM pkgs { hostName = "nixos01"; };
+  nixos02 = mkHost' ./nixosVM pkgs { hostName = "nixos02"; };
 
-  aragog = mkHost' ./aragog { };
+  aragog = mkHost' ./aragog pkgs { };
 }

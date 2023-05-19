@@ -1,14 +1,13 @@
 { options, config, lib, mylib, ... }:
 
 let
-  inherit (lib) types;
   inherit (lib.modules) mkIf mkMerge;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.programs.desktop.browsers.firefox;
+  cfg = config.mymodules.programs.desktop.browsers.firefox;
 in
 {
-  options.modules.programs.desktop.browsers.firefox = with types; {
+  options.mymodules.programs.desktop.browsers.firefox = {
     enable = mkBoolOpt false;
   };
 

@@ -5,11 +5,11 @@ let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.desktops.gnome;
+  cfg = config.mymodules.desktops.gnome;
 in
 {
-  options.modules.desktops.gnome = {
-    enable = mkBoolOpt (attrByPath [ "systemConfig" "modules" "desktops" "gnome" "enable" ] false args);
+  options.mymodules.desktops.gnome = {
+    enable = mkBoolOpt (attrByPath [ "systemConfig" "mymodules" "desktops" "gnome" "enable" ] false args);
   };
 
   config = mkIf cfg.enable {

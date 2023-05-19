@@ -8,7 +8,7 @@ let
 
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.programs.cli.bat;
+  cfg = config.mymodules.programs.cli.bat;
 
   shellAliases = { } // optionalAttrs cfg.enableAliases {
     cat = "bat -p";
@@ -16,7 +16,7 @@ let
 in
 {
 
-  options.modules.programs.cli.bat = {
+  options.mymodules.programs.cli.bat = {
     enable = mkBoolOpt false;
 
     enableAliases = mkOption {

@@ -4,15 +4,15 @@ let
   inherit (lib.modules) mkIf mkDefault;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.desktops.gnome;
+  cfg = config.mymodules.desktops.gnome;
 in
 {
-  options.modules.desktops.gnome = {
+  options.mymodules.desktops.gnome = {
     enable = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
-    modules = {
+    mymodules = {
       services = {
         xserver.enable = mkDefault true;
         displayManager.gdm.enable = mkDefault true;

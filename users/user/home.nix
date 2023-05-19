@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+_:
 {
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
 
-  modules = {
+  mymodules = {
     programs.cli = {
       exa.enable = true;
       htop.enable = true;
@@ -13,6 +13,6 @@
   };
 
   home = {
-    packages = with pkgs; [ ];
+    # packages = with pkgs; [ ];
   };
 }

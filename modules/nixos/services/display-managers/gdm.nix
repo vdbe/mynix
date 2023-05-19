@@ -4,10 +4,10 @@ let
   inherit (lib.modules) mkIf mkDefault;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.services.displayManager.gdm;
+  cfg = config.mymodules.services.displayManager.gdm;
 in
 {
-  options.modules.services.displayManager.gdm = {
+  options.mymodules.services.displayManager.gdm = {
     enable = mkBoolOpt false;
   };
 

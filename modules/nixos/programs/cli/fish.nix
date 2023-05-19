@@ -4,10 +4,10 @@ let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.programs.cli.fish;
+  cfg = config.mymodules.programs.cli.fish;
 in
 {
-  options.modules.programs.cli.fish = {
+  options.mymodules.programs.cli.fish = {
     enable = mkBoolOpt false;
   };
 

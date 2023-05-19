@@ -66,7 +66,7 @@
       forAllSystems = genAttrs (import systems);
 
       pkgs = forAllSystems (system: mkPkgs system nixpkgs [ self.overlays.my self.overlays.unstable ]);
-      pkgs' = forAllSystems (system: mkPkgs system nixpkgs-unstable [ self.overlays.my ]);
+      pkgs' = forAllSystems (system: mkPkgs system nixpkgs-unstable [ self.overlays.my self.overlays.unstable ]);
     in
     {
       inherit (mynixosmodules) nixosModules;
@@ -81,12 +81,11 @@
         unstable = final: _prev: {
           unstable = pkgs'.${final.system};
         };
-        test = import ./overlay.nix;
       };
-
 
       nixosConfigurations = import (path { path = ./.; name = "mynixos"; }) {
         inherit self pkgs lib mylib inputs;
+        pkgs-unstable = pkgs';
       };
 
     };

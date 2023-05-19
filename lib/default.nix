@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (builtins) baseNameOf dirOf elemAt getAttr hasAttr pathExists split;
+  inherit (builtins) baseNameOf dirOf elemAt getAttr hasAttr length pathExists split;
   inherit (lib) nixosSystem types;
   inherit (lib.modules) mkDefault;
   inherit (lib.options) mkOption;
@@ -84,16 +84,16 @@ rec {
       username =
         let
           # get everything _before_ last '@' (readability at its finest)
-          at_split = builtins.split "^(.+?.)@.*"
+          at_split = split "^(.+?.)@.*"
             (baseNameOf (if isDir then configurationDir else configurationPath));
 
           # if no @ at_split length is 1 and elemAt 1 would fail
           name =
-            if (builtins.length at_split) == 1
+            if (length at_split) == 1
             then
-              builtins.elemAt at_split 0
+              elemAt at_split 0
             else
-              builtins.elemAt (builtins.elemAt at_split 1) 0;
+              elemAt (elemAt at_split 1) 0;
         in
         getAttrWithDefault
           # default

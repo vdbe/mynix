@@ -4,14 +4,14 @@ let
   inherit (lib.modules) mkDefault mkIf;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.yubikey;
+  cfg = config.mymodules.yubikey;
 in
 {
-  options.modules.yubikey = {
+  options.mymodules.yubikey = {
     enable = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
-    modules.services.pcscd.enable = mkDefault true;
+    mymodules.services.pcscd.enable = mkDefault true;
   };
 }

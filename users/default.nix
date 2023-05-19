@@ -7,14 +7,14 @@ let
 
   defaultExtraSpecialArgs = { inherit self lib mylib inputs systemConfig; };
 
-  mkUser' = configurationPath: extraSpecialArgs:
+  mkUser' = configurationPath: pkgs': extraSpecialArgs:
     let
       extraSpecialArgs' = recursiveUpdate defaultExtraSpecialArgs extraSpecialArgs;
     in
-    mkUser defaultConfiguration configurationPath pkgs extraSpecialArgs';
+    mkUser defaultConfiguration configurationPath pkgs' extraSpecialArgs';
 in
 {
-  user = mkUser' ./user { };
-  "user@aragog" = mkUser' (./user + "@aragog") { };
-  "user@buckbeak" = mkUser' (./user + "@buckbeak") { };
+  user = mkUser' ./user pkgs { };
+  "user@aragog" = mkUser' (./user + "@aragog") pkgs { };
+  "user@buckbeak" = mkUser' (./user + "@buckbeak") pkgs { };
 }

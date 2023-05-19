@@ -4,10 +4,10 @@ let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.services.pcscd;
+  cfg = config.mymodules.services.pcscd;
 in
 {
-  options.modules.services.pcscd = {
+  options.mymodules.services.pcscd = {
     enable = mkBoolOpt false;
   };
 

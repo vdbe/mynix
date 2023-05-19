@@ -3,10 +3,10 @@
 let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
-  cfg = config.modules.services.openssh;
+  cfg = config.mymodules.services.openssh;
 in
 {
-  options.modules.services.openssh = {
+  options.mymodules.services.openssh = {
     enable = mkBoolOpt true;
   };
 

@@ -5,11 +5,11 @@ let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.programs.cli.bash;
+  cfg = config.mymodules.programs.cli.bash;
 in
 {
-  options.modules.programs.cli.bash = {
-    enable = mkBoolOpt (attrByPath [ "systemConfig" "modules" "programs" "cli" "bash" "enable" ] false args);
+  options.mymodules.programs.cli.bash = {
+    enable = mkBoolOpt (attrByPath [ "systemConfig" "mymodules" "programs" "cli" "bash" "enable" ] false args);
   };
 
   config = mkIf cfg.enable {

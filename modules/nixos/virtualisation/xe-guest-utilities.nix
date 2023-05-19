@@ -4,10 +4,10 @@ let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.modules.services.xe-guest-utilities;
+  cfg = config.mymodules.services.xe-guest-utilities;
 in
 {
-  options.modules.services.xe-guest-utilities = {
+  options.mymodules.services.xe-guest-utilities = {
     enable = mkBoolOpt false;
   };
 

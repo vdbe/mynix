@@ -2,29 +2,43 @@
 {
   imports = [
     # Based on the user user
-    ./../user/home.nix
+    #./../user/home.nix
   ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  modules = {
+  mymodules = {
     nix.enable = true;
     nix-path = {
       enable = true;
       overlays.enable = true;
     };
     programs.cli = {
-      fish.enable = true;
       bat.enable = true;
       exa.enable = true;
+      fish.enable = true;
+      git.enable = true;
+      gpg.enable = true;
       starship.enable = true;
       tmux.enable = true;
     };
   };
 
+  programs = {
+    # gpg module was enabled to get gpg integration with other modules
+    # not to setup gpg, so we disable the program.
+    gpg.enable = false;
+  };
+
 
   home = {
-    packages = with pkgs.unstable; [ my.test123 my.testabc direnv nix-direnv nix nix-tree lazygit ];
+    packages = with pkgs.unstable; [
+      direnv
+      lazygit
+      nix
+      nix-direnv
+      nix-tree
+    ];
   };
 }

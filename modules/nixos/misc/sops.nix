@@ -7,12 +7,12 @@ let
 
   inherit (inputs) sops-nix;
 
-  cfg = config.modules.sops;
+  cfg = config.mymodules.sops;
 in
 {
   imports = [ sops-nix.nixosModules.sops ];
 
-  options.modules.sops = {
+  options.mymodules.sops = {
     enable = mkBoolOpt false;
 
     defaultSopsFile = mkOption {

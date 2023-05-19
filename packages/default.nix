@@ -13,8 +13,8 @@ let
     test123 = pkgs.callPackage ./test123 { };
     testabc = pkgs.callPackage ./testabc { inherit test123; };
 
-    maelstrom = pkgs.callPackage ./maelstrom { };
     fennel = pkgs.callPackage ./fennel { };
+    maelstrom = pkgs.callPackage ./maelstrom { };
   };
 
   # FROM: https://github.com/numtide/flake-utils/

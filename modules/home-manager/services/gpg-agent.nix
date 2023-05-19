@@ -3,10 +3,10 @@
 let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
-  cfg = config.modules.services.gpg-agent;
+  cfg = config.mymodules.services.gpg-agent;
 in
 {
-  options.modules.services.gpg-agent = {
+  options.mymodules.services.gpg-agent = {
     enable = mkBoolOpt false;
     enableSshSupport = mkBoolOpt false;
 
