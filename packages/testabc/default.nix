@@ -1,8 +1,8 @@
 { writers, test123, ... }:
 
 let
-  name = "testabc";
+  pname = "testabc";
 in
-writers.writeDashBin name ''
+writers.writeDashBin "${pname}" ''
   cat ${test123}/bin/test123
 ''

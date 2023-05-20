@@ -1,8 +1,8 @@
 { writers, ... }:
 
 let
-  name = "test123";
+  pname = "test123";
 in
-writers.writeDashBin name ''
+writers.writeDashBin "${pname}" ''
   echo "Test123"
 ''
