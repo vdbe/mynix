@@ -14,13 +14,10 @@ in
     services.openssh = {
       enable = true;
       openFirewall = true;
-      # stateVersion: 23.05
-      #settings = {
-      #  PermitRootLogin = "no";
-      #  PasswordAuthentication = true;
-      #};
-      permitRootLogin = "no";
-      passwordAuthentication = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = true;
+      };
       startWhenNeeded = true;
       extraConfig = ''
         StreamLocalBindUnlink yes

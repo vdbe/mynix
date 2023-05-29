@@ -19,7 +19,6 @@ in
       type = types.bool;
     };
 
-    # TODO: exa extraOptions (not yet in 22.11)
     extraOptions = mkOption {
       type = types.listOf types.str;
       default = [ "--group-directories-first" ];
@@ -29,7 +28,6 @@ in
       '';
     };
 
-    # TODO: exa icons (not yet in 22.11)
     icons = mkOption {
       type = types.bool;
       default = false;
@@ -38,7 +36,6 @@ in
       '';
     };
 
-    # TODO: exa git (not yet in 22.11)
     git = mkOption {
       type = types.bool;
       default = config.mymodules.programs.cli.git.enable;
@@ -51,7 +48,7 @@ in
   config = mkIf cfg.enable (mkMerge [
     {
       programs.exa = {
-        inherit (cfg) enable enableAliases;
+        inherit (cfg) enable enableAliases extraOptions icons git;
       };
     }
 

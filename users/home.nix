@@ -12,6 +12,6 @@ in
         if pkgs.stdenv.isDarwin then "Users" else "home"
       }/${config.home.username}";
 
-    stateVersion = "22.11";
+    stateVersion = "23.05";
   };
 }

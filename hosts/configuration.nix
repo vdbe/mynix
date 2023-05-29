@@ -9,13 +9,15 @@ in
   ];
 
   boot = {
-    tmpOnTmpfs = mkDefault true;
     loader = {
       efi.canTouchEfiVariables = mkDefault true;
       systemd-boot = {
         enable = mkDefault true;
         configurationLimit = mkDefault 10;
       };
+    };
+    tmp = {
+      useTmpfs = mkDefault true;
     };
   };
 
@@ -32,7 +34,7 @@ in
   };
 
   environment = {
-    binsh = "${pkgs.dash}/bin/dash";
+    #binsh = "${pkgs.dash}/bin/dash";
     #localBinInPath = true;
 
     systemPackages = with pkgs; [ dash ];
@@ -51,6 +53,6 @@ in
 
   system = {
     configurationRevision = mkDefault (self.rev or "dirty");
-    stateVersion = mkDefault "22.11";
+    stateVersion = mkDefault "23.05";
   };
 }

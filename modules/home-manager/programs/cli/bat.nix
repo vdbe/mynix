@@ -25,7 +25,6 @@ in
       type = types.bool;
     };
 
-    # TODO: Bat extraPackages (not yet in 22.11)
     extraPackages = mkOption {
       type = types.listOf types.package;
       default = [ ];
@@ -40,7 +39,7 @@ in
   config = mkIf cfg.enable {
     programs = {
       bat = {
-        inherit (cfg) enable;
+        inherit (cfg) enable extraPackages;
       };
     };
     home.shellAliases = shellAliases;

@@ -4,7 +4,7 @@
   inputs = {
     systems.url = "github:vdbe/nix-systems";
 
-    nixpkgs.url = "nixpkgs/nixos-22.11";
+    nixpkgs.url = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
@@ -13,10 +13,9 @@
     flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
 
-    home-manager.url = "github:nix-community/home-manager/release-22.11";
+    home-manager.url = "github:nix-community/home-manager/release-23.05";
     #home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.inputs.utils.follows = "flake-utils";
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -206,7 +205,7 @@
         };
         aragog = {
           hostname = "aragog";
-          sshUser = "root";
+          sshUser = "user";
           profiles.system =
             let
               nixosSystem = self.nixosConfigurations.aragog;
@@ -222,7 +221,7 @@
           sshUser = "user";
           profiles.system =
             let
-              nixosSystem = self.nixosConfigurations.nixos02;
+              nixosSystem = self.nixosConfigurations.nixos01;
               inherit (nixosSystem.pkgs) system;
             in
             {
