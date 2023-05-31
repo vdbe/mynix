@@ -17,7 +17,9 @@
     programs.cli = {
       bat.enable = true;
       exa.enable = true;
+      fd.enable = true;
       fish.enable = true;
+      fzf.enable = true;
       git.enable = true;
       gpg.enable = true;
       starship.enable = true;

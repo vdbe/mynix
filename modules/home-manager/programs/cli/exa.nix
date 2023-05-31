@@ -48,7 +48,9 @@ in
   config = mkIf cfg.enable (mkMerge [
     {
       programs.exa = {
-        inherit (cfg) enable enableAliases extraOptions icons git;
+        enable = true;
+
+        inherit (cfg) enableAliases extraOptions icons git;
       };
     }
 
@@ -58,7 +60,6 @@ in
         lp = "ll --octal-permissions";
       };
     })
-
 
   ]);
 }

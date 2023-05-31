@@ -9,7 +9,9 @@ let
     ./programs/cli/bat.nix
     ./programs/cli/bitwarden-cli.nix
     ./programs/cli/exa.nix
+    ./programs/cli/fd.nix
     ./programs/cli/fish.nix
+    ./programs/cli/fzf.nix
     ./programs/cli/git.nix
     ./programs/cli/gpg.nix
     ./programs/cli/htop.nix

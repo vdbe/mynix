@@ -22,7 +22,7 @@ in
       historyLimit = 100000;
       keyMode = "vi";
 
-      #mouse = true;
+      mouse = true;
 
       sensibleOnTop = true;
 
@@ -34,9 +34,6 @@ in
       extraConfig = ''
         # Renumber windows sequentially after closing any of them
         set-option -g renumber-windows on
-
-        # Mouse friendly
-        set -g mouse on
 
         # Fix titlebar
         set -g set-titles on
