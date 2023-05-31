@@ -16,14 +16,19 @@
     };
     programs.cli = {
       bat.enable = true;
+      direnv.enable = true;
       exa.enable = true;
       fd.enable = true;
       fish.enable = true;
       fzf.enable = true;
       git.enable = true;
       gpg.enable = true;
+      jq.enable = true;
+      lazygit.enable = true;
+      password-store.enable = true;
       starship.enable = true;
       tmux.enable = true;
+      translate.enable = true;
     };
   };
 
@@ -33,13 +38,9 @@
     gpg.enable = false;
   };
 
-
   home = {
     packages = with pkgs.unstable; [
-      direnv
-      lazygit
       nix
-      nix-direnv
       nix-tree
     ];
   };
