@@ -45,7 +45,7 @@ in
 
       plugins = with pkgs; [
         {
-          plugin = unstable.tmuxPlugins.catppuccin;
+          plugin = tmuxPlugins.catppuccin;
           extraConfig = ''
             #set -g @catppuccin_flavour "mocha"  # Latte, frappe, macchiato, mocha (default)
 
