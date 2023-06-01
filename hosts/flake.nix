@@ -7,6 +7,11 @@
     nixpkgs.url = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
+    impermanence.url = "github:nix-community/impermanence";
+
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -38,6 +43,7 @@
     myhomemanager.inputs.systems.follows = "";
     myhomemanager.inputs.nixpkgs.follows = "";
     myhomemanager.inputs.nixpkgs-unstable.follows = "";
+    myhomemanager.inputs.impermanence.follows = "";
     myhomemanager.inputs.home-manager.follows = "";
     myhomemanager.inputs.myconfig.follows = "";
     myhomemanager.inputs.mylib.follows = "";

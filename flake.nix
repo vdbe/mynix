@@ -7,6 +7,11 @@
     nixpkgs.url = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
+    impermanence.url = "github:nix-community/impermanence";
+
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
     flake-utils.url = "github:numtide/flake-utils";
     flake-utils.inputs.systems.follows = "systems";
 
@@ -59,6 +64,7 @@
     myhomemanager.inputs.systems.follows = "systems";
     myhomemanager.inputs.nixpkgs.follows = "nixpkgs";
     myhomemanager.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+    myhomemanager.inputs.impermanence.follows = "impermanence";
     myhomemanager.inputs.home-manager.follows = "home-manager";
     myhomemanager.inputs.myconfig.follows = "myconfig";
     myhomemanager.inputs.mylib.follows = "mylib";
@@ -70,6 +76,8 @@
     mynixos.inputs.systems.follows = "systems";
     mynixos.inputs.nixpkgs.follows = "nixpkgs";
     mynixos.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+    mynixos.inputs.impermanence.follows = "impermanence";
+    mynixos.inputs.disko.follows = "disko";
     mynixos.inputs.home-manager.follows = "home-manager";
     mynixos.inputs.sops-nix.follows = "sops-nix";
     mynixos.inputs.nixos-hardware.follows = "nixos-hardware";
@@ -82,10 +90,11 @@
     mynixos.inputs.myhomemanager.follows = "myhomemanager";
   };
 
-  outputs = inputs@{ self, nixpkgs, systems, ... }:
+  outputs = inputs@{ self, nixpkgs, systems, disko, ... }:
     let
       inherit (builtins) path;
       inherit (nixpkgs.lib.attrsets) genAttrs recursiveUpdate;
+      inherit (nixpkgs.lib.lists) optional;
       inherit (inputs.mylib.lib) mkPkgs;
 
       mynix = path {
@@ -179,7 +188,9 @@
 
               # Dev
               sops
-            ];
+            ]
+            ++ optional (disko.packages ? ${system}) disko.packages.${system}.disko;
+
             shellHook = ''
               ${self.checks.${system}.pre-commit.shellHook}
             '';

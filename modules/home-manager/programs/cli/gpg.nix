@@ -11,6 +11,8 @@ in
 {
   options.mymodules.programs.cli.gpg = {
     enable = mkBoolOpt false;
+    mutableKeys = mkBoolOpt false;
+    mutableTrust = mkBoolOpt false;
 
     # TODO: Option to provide key or to not import key
     # TODO: enableAgent/useAgent options
@@ -20,8 +22,7 @@ in
   config = mkIf cfg.enable {
     programs.gpg = {
       enable = mkDefault true;
-      mutableKeys = false;
-      mutableTrust = false;
+      inherit (cfg) mutableKeys mutableTrust;
       publicKeys = [
         {
           source = gpgKeySource;

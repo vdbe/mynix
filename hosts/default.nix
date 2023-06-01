@@ -17,6 +17,7 @@ in
   local = mkHost' ./localVM pkgs { hostName = "local"; };
   nixos01 = mkHost' ./nixosVM pkgs { hostName = "nixos01"; };
   nixos02 = mkHost' ./nixosVM pkgs { hostName = "nixos02"; };
+  nixos03 = mkHost' ./nixos03 pkgs { };
 
   aragog = mkHost' ./aragog pkgs { };
 }

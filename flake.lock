@@ -26,6 +26,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1685697917,
+        "narHash": "sha256-ZP6kSAGQK8jwDsgSktarNDfm9Ei1RTWOkrjl7iOPPvQ=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "e14a03cd62ec232d958139b11975ed09034139ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -104,6 +124,21 @@
         "type": "github"
       }
     },
+    "impermanence": {
+      "locked": {
+        "lastModified": 1684264534,
+        "narHash": "sha256-K0zr+ry3FwIo3rN2U/VWAkCJSgBslBisvfRIPwMbuCQ=",
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "rev": "89253fb1518063556edd5e54509c30ac3089d5e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "type": "github"
+      }
+    },
     "myconfig": {
       "flake": false,
       "locked": {
@@ -121,6 +156,9 @@
       "inputs": {
         "home-manager": [
           "home-manager"
+        ],
+        "impermanence": [
+          "impermanence"
         ],
         "myconfig": [
           "myconfig"
@@ -149,7 +187,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-FYOy/GEwySPVm0k+g3XrPBR99Uqij60fJc0XYnj3e4U=",
+        "narHash": "sha256-/Lr+lr1O3NDeL+z2N7fCCHmbUCou01ETljNP0v8I0ho=",
         "path": "./users",
         "type": "path"
       },
@@ -166,7 +204,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-zIxVFh9BA5cOeDWMn8qQeYy0no/6bwkbogEktttdv2g=",
+        "narHash": "sha256-ZT7Uq02AtWi/n2Y+yhMmkcnrOlNt//+HrZpCymwXzmM=",
         "path": "./modules/home-manager",
         "type": "path"
       },
@@ -194,8 +232,14 @@
     },
     "mynixos": {
       "inputs": {
+        "disko": [
+          "disko"
+        ],
         "home-manager": [
           "home-manager"
+        ],
+        "impermanence": [
+          "impermanence"
         ],
         "myconfig": [
           "myconfig"
@@ -236,7 +280,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-jkJ7KlrdyXjTof66f2cgSClSU7O/urLypXgGAiYYHhU=",
+        "narHash": "sha256-Ea5vWcLXsCTZk1EHo84JY4chfwXEA6/C2rl/xCGe60E=",
         "path": "./hosts",
         "type": "path"
       },
@@ -248,7 +292,7 @@
     "mynixosmodules": {
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-KtHqIUByUwQeWvdy2ULpDh0/kqE6ruJp15taP+YOYXM=",
+        "narHash": "sha256-JwjzQmRKw3xc/hcg1di2LXO03+U3EWa18GL+w3d9vMw=",
         "path": "./modules/nixos",
         "type": "path"
       },
@@ -336,11 +380,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1685561376,
-        "narHash": "sha256-uIcJdaovXr55FJdmvR6yIN6IWoOL4amBj56e/T2KhgM=",
+        "lastModified": 1685677062,
+        "narHash": "sha256-zoHF7+HNwNwne2XEomphbdc4Y8tdWT16EUxUTXpOKpQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "bc3ec5eaa759d58e9fb1bdc9cfe94f74d0331b31",
+        "rev": "95be94370d09f97f6af6a1df1eb9649b5260724e",
         "type": "github"
       },
       "original": {
@@ -382,9 +426,11 @@
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
+        "disko": "disko",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "impermanence": "impermanence",
         "myconfig": "myconfig",
         "myhomemanager": "myhomemanager",
         "myhomemanagermodules": "myhomemanagermodules",

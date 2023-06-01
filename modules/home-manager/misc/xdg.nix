@@ -12,6 +12,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    # TODO: impermanence
     xdg = {
       enable = true;
       mime.enable = true;

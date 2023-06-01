@@ -1,7 +1,8 @@
-{ self, pkgs, lib, ... }:
+{ self, config, pkgs, lib, ... }:
 
 let
-  inherit (lib.modules) mkDefault;
+  inherit (lib.attrsets) attrByPath;
+  inherit (lib.modules) mkDefault mkIf;
 in
 {
   imports = [
@@ -21,7 +22,12 @@ in
     };
   };
 
-  fileSystems."/".device = mkDefault "/dev/disk/by-label/NIXOS";
+  # Only set if disko is not enabled
+  fileSystems = mkIf (!(attrByPath [ "disko" "enableConfig" ] false config)) {
+    "/" = mkDefault {
+      device = "/dev/disk/by-label/NIXOS";
+    };
+  };
 
   time.timeZone = mkDefault "Europe/Brussels";
   i18n.defaultLocale = mkDefault "en_US.UTF-8";
@@ -56,3 +62,4 @@ in
     stateVersion = mkDefault "23.05";
   };
 }
+
