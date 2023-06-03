@@ -13,7 +13,7 @@ in
 
     settings = {
       PermitRootLogin = mkOption {
-        default = "prohibit-password";
+        default = "no";
         type = types.enum [ "yes" "without-password" "prohibit-password" "forced-commands-only" "no" ];
         description = lib.mdDoc ''
           Whether the root user can login using ssh.
