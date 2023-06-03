@@ -66,6 +66,7 @@ in
       systemd.tmpfiles.rules = systemRules ++ flatUserRules;
 
       programs.fuse.userAllowOther = true; # required for allowOther
+
       environment.persistence."${cfg.location}/data/system" = {
         inherit (cfg) hideMounts;
         directories = [

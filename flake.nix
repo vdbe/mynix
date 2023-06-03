@@ -19,7 +19,6 @@
     flake-compat.flake = false;
 
     home-manager.url = "github:nix-community/home-manager/release-23.05";
-    #home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";

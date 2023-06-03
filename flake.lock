@@ -280,7 +280,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-Ea5vWcLXsCTZk1EHo84JY4chfwXEA6/C2rl/xCGe60E=",
+        "narHash": "sha256-KdKukrXSn61K5b5SC0nMp4XZVQMMwtlhw40Gg0kRNyo=",
         "path": "./hosts",
         "type": "path"
       },
@@ -292,7 +292,7 @@
     "mynixosmodules": {
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-JwjzQmRKw3xc/hcg1di2LXO03+U3EWa18GL+w3d9vMw=",
+        "narHash": "sha256-ygcMbFa8v6JzgjPWFXl5HBUPBnoNEKOeG/onMeUWCKA=",
         "path": "./modules/nixos",
         "type": "path"
       },

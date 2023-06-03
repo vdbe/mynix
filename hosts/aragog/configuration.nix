@@ -36,9 +36,9 @@ in
         bash.enable = true;
       };
     };
-    desktops = {
-      gnome.enable = true;
-    };
+    #desktops = {
+    #  gnome.enable = true;
+    #};
   };
 
 
@@ -62,6 +62,9 @@ in
     # packages = with pkgs; [
     # ];
   };
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBB774/7KJ/Y5k9jVF8YACJiyPKzU4PZs3brXbnMHtmq user@buckbeak"
+  ];
 
   security.sudo.extraRules = [
     {
