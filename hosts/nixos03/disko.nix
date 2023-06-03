@@ -1,4 +1,4 @@
-{ disks ? [ "/dev/disk/by-id/ata-KINGSTON_RBUSC180DS37256GH_50026B727301DBA9" ], ... }: {
+{ disks ? [ "/dev/sda" ], ... }: {
   disko.devices = {
     nodev = {
       "/" = {

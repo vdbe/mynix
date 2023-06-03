@@ -280,7 +280,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-KdKukrXSn61K5b5SC0nMp4XZVQMMwtlhw40Gg0kRNyo=",
+        "narHash": "sha256-2zSLGIFIWPaE8mszHe5+9EMMMj+IUBuOPyDXlG6bpyY=",
         "path": "./hosts",
         "type": "path"
       },
