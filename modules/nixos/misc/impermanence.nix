@@ -46,17 +46,21 @@ in
           perm = "0755 ${user.username} ${user.group}";
         in
         [
-          "d ${cfg.location}/data/users/${user.username} ${perm}"
           "d ${cfg.location}/cache/users/${user.username} ${perm}"
+          "d ${cfg.location}/data/users/${user.username} ${perm}"
+          "d ${cfg.location}/state/users/${user.username} ${perm}"
         ]);
 
       flatUserRules = flatten userRules;
 
       systemRules = [
-        "d ${cfg.location}/data 0755 root root"
         "d ${cfg.location}/cache 0755 root root"
-        "d ${cfg.location}/data/system 0755 root root"
+        "d ${cfg.location}/data 0755 root root"
+        "d ${cfg.location}/state 0755 root root"
+
         "d ${cfg.location}/cache/system 0755 root root"
+        "d ${cfg.location}/data/system 0755 root root"
+        "d ${cfg.location}/state/system 0755 root root"
       ];
     in
     {
@@ -69,6 +73,11 @@ in
 
       environment.persistence."${cfg.location}/data/system" = {
         inherit (cfg) hideMounts;
+      };
+
+      environment.persistence."${cfg.location}/state/system" = {
+        inherit (cfg) hideMounts;
+
         directories = [
           "/var/log"
           "/var/lib/nixos"

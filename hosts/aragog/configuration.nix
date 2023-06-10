@@ -39,9 +39,10 @@ in
         bash.enable = true;
       };
     };
-    #desktops = {
-    #  gnome.enable = true;
-    #};
+    desktops = {
+      gnome.enable = true;
+    };
+    impermanence.enable = true;
   };
 
 
@@ -54,8 +55,8 @@ in
 
   users.users.user = {
     isNormalUser = true;
-    #passwordFile = config.sops.secrets.hashed_password.path;
-    initialPassword = "toor123";
+    passwordFile = config.sops.secrets.hashed_password.path;
+    #initialPassword = "toor123";
     shell = pkgs.fish;
     extraGroups = [ "wheel" "networkmanager" "video" ]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keys = [

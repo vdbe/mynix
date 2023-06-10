@@ -25,6 +25,7 @@ in
     (mkIf impermanence.enable {
       home.persistence."${impermanence.location}/cache/users/${config.home.username}" = {
         removePrefixDirectory = false;
+        allowOther = true;
         files =
           let
             historyFile' = config.programs.bash.historyFile;
@@ -33,7 +34,6 @@ in
           [
             historyFile
           ];
-        allowOther = true;
       };
     })
 
