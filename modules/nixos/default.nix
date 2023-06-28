@@ -10,6 +10,7 @@ let
     ./programs/cli/bash.nix
     ./programs/cli/fish.nix
     ./security/acme.nix
+    ./services/desktops/flatpak.nix
     ./services/display-managers/default.nix
     ./services/display-managers/gdm.nix
     ./services/hardware/pcscd.nix

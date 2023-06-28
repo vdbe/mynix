@@ -23,7 +23,7 @@ in
     }
 
     (mkIf impermanence.enable {
-      home.persistence."${impermanence.location}/cache/users/${config.home.username}" = {
+      home.persistence."${impermanence.location}/state/users/${config.home.username}" = {
         removePrefixDirectory = false;
         allowOther = true;
         files =

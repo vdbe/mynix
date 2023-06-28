@@ -1,11 +1,14 @@
-{ self, pkgs, lib, mylib, inputs, ... }:
+{ self, pkgs ? <nixpkgs>, lib, mylib, inputs, ... }:
 let
   inherit (lib.attrsets) recursiveUpdate;
   inherit (mylib) mkHost;
 
   defaultConfiguration = ./configuration.nix;
 
-  defaultSpecialArgs = { inherit self lib mylib inputs; };
+  defaultSpecialArgs = {
+    inherit self lib mylib inputs;
+    inherit (inputs) mysecrets myconfig;
+  };
 
   mkHost' = configurationPath: pkgs': extraSpecialArgs:
     let

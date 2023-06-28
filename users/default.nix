@@ -5,7 +5,11 @@ let
 
   defaultConfiguration = ./home.nix;
 
-  defaultExtraSpecialArgs = { inherit self lib mylib inputs systemConfig; };
+  defaultExtraSpecialArgs = {
+    inherit self lib mylib inputs systemConfig;
+    inherit (inputs) myconfig;
+
+  };
 
   mkUser' = configurationPath: pkgs': extraSpecialArgs:
     let

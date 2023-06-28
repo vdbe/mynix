@@ -1,4 +1,4 @@
-args@{ self, config, pkgs, lib, mylib, inputs, system, ... }:
+args@{ config, pkgs, lib, mylib, inputs, ... }:
 
 let
   inherit (lib.attrsets) recursiveUpdate;
@@ -92,8 +92,6 @@ in
       ];
     };
 
-    extraSpecialArgs = mkExtraSpecialArgs config {
-      inherit self lib mylib pkgs inputs system;
-    };
+    extraSpecialArgs = mkExtraSpecialArgs config args;
   };
 }

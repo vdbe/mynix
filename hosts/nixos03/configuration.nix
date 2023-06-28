@@ -1,4 +1,4 @@
-{ self, config, pkgs, lib, mylib, inputs, system, ... }:
+args@{ config, pkgs, mylib, inputs, ... }:
 
 let
   inherit (mylib) mkExtraSpecialArgs;
@@ -87,9 +87,7 @@ in
         };
       };
     };
-    extraSpecialArgs = mkExtraSpecialArgs config {
-      inherit self lib mylib pkgs inputs system;
-    };
+    extraSpecialArgs = mkExtraSpecialArgs config args;
   };
 }
 

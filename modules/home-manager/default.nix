@@ -19,11 +19,17 @@ let
     ./programs/cli/htop.nix
     ./programs/cli/jq.nix
     ./programs/cli/lazygit.nix
+    ./programs/cli/neovim.nix
     ./programs/cli/password-store.nix
+    ./programs/cli/ripgrep.nix
+    ./programs/cli/ssh.nix
     ./programs/cli/starship.nix
     ./programs/cli/tmux.nix
     ./programs/cli/translate.nix
+    ./programs/cli/yubikey.nix
     ./programs/desktop/browsers/firefox.nix
+    ./programs/desktop/yubikey.nix
+    ./services/desktops/flatpak.nix
     ./services/gpg-agent.nix
   ];
 

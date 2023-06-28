@@ -1,10 +1,10 @@
-{ config, options, lib, mylib, inputs, ... }:
+{ config, options, lib, mylib, myconfig, ... }:
 
 let
   inherit (lib.modules) mkDefault mkIf;
   inherit (mylib) mkBoolOpt;
 
-  gpgKeySource = inputs.myconfig + /gpg/pub.key;
+  gpgKeySource = myconfig + "/gpg/pub.key";
 
   cfg = config.mymodules.programs.cli.gpg;
 in

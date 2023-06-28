@@ -1,8 +1,10 @@
 { config, options, lib, mylib, ... }:
 
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkMerge;
   inherit (mylib) mkBoolOpt;
+
+  inherit (config.mymodules) impermanence;
 
   cfg = config.mymodules.programs.cli.starship;
 in
@@ -11,10 +13,22 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    programs.starship = {
-      enable = true;
-    };
-  };
+  config = mkIf cfg.enable (mkMerge [
+    {
+      programs.starship = {
+        enable = true;
+      };
+    }
+
+    (mkIf impermanence.enable {
+      home.persistence."${impermanence.location}/cache/users/${config.home.username}" = {
+        directories = [
+          ".cache/starship"
+        ];
+        allowOther = true;
+        removePrefixDirectory = false;
+      };
+    })
+  ]);
 }
 

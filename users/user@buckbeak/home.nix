@@ -40,6 +40,7 @@
 
   home = {
     packages = with pkgs.unstable; [
+      comma
       nix
       nix-tree
     ];

@@ -1,4 +1,4 @@
-{ config, options, lib, mylib, ... }:
+{ config, options, lib, mylib, pkgs, ... }:
 
 let
   inherit (lib.modules) mkIf mkDefault mkMerge;
@@ -29,6 +29,8 @@ in
       services.gnome = {
         gnome-initial-setup.enable = false;
       };
+
+      environment.gnome.excludePackages = with pkgs; [ gnome-tour ];
     }
     (mkIf impermanence.enable {
       environment.persistence."${impermanence.location}/data/system" = {

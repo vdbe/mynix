@@ -33,8 +33,8 @@ in
 
       ${optionalString cfg.overlays.enable ''
       ln -sv ${inputs.nixpkgs-unstable} $out/nixpkgs-unstable
-      ln -sv ${inputs.mypackages} $out/mypkgs
-      ln -sv ${inputs.myoverlays} $out/myoverlays
+      #ln -sv ${inputs.mypackages} $out/mypkgs
+      #ln -sv ${inputs.myoverlays} $out/myoverlays
       ''}
     '';
   };

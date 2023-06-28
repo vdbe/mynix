@@ -11,6 +11,11 @@ in
 {
   options.mymodules.programs.cli.tmux = {
     enable = mkBoolOpt false;
+    plugins = {
+      catppuccin = {
+        enable = mkBoolOpt false;
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -44,7 +49,7 @@ in
       '';
 
       plugins = with pkgs; [
-        {
+        (mkIf cfg.plugins.catppuccin.enable {
           plugin = tmuxPlugins.catppuccin;
           extraConfig = ''
             #set -g @catppuccin_flavour "mocha"  # Latte, frappe, macchiato, mocha (default)
@@ -58,9 +63,8 @@ in
             set -g @catppuccin_right_separator "█"
           '';
 
-        }
+        })
       ];
-
     };
 
     #xdg.configFile."tmux/tmux.conf".source = tmuxConfig + "/tmux.conf";

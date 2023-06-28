@@ -46,7 +46,7 @@ in
     systemPackages = with pkgs; [ dash ];
   };
 
-  programs.command-not-found.enable = false;
+  programs.command-not-found.enable = mkDefault false;
 
   users = {
     mutableUsers = mkDefault false;

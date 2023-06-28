@@ -13,7 +13,6 @@ in
   options.mymodules.programs.cli.fzf = {
     enable = mkBoolOpt false;
 
-
     tmux = {
       enableShellIntegration = mkBoolOpt config.mymodules.programs.cli.tmux.enable;
     };

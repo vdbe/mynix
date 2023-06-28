@@ -15,16 +15,29 @@ in
   config = mkIf cfg.enable {
     # https://github.com/gvolpe/dconf2nix
     dconf.settings = {
+      "org/gnome/desktop/input-sources" = {
+        xkb-options = [ "terminate:ctrl_alt_bksp" "caps:escape_shifted_capslock" ];
+      };
       "org/gnome/desktop/interface" = {
+        clock-show-weekday = true;
         color-scheme = "prefer-dark";
         enable-animations = false;
+        show-battery-percentage = true;
+        monospace-font-name = "IosevkaTerm Nerd Font 10";
       };
       "org/gnome/desktop/peripherals/touchpad" = {
         tap-to-click = true;
         two-finger-scrolling-enabled = true;
+        speed = 0.50000000000000000;
+      };
+      "org/gnome/desktop/search-providers" = {
+        disable-external = false;
       };
       "org/gnome/desktop/wm/preferences" = {
+        action-middle-click-titlebar = "minimize";
+        button-layout = "appmenu:minimize,maximize,close";
         num-workspaces = 4;
+        resize-with-right-button = true;
       };
       "org/gnome/desktop/wm/keybindings" = {
         switch-to-workspace-1 = [ "<Super>1" ];
@@ -39,15 +52,27 @@ in
       };
       "org/gnome/mutter" = {
         dynamic-workspaces = false;
+        edge-tiling = true;
       };
       "org/gnome/settings-daemon/plugins/color" = {
         night-light-enabled = true;
+      };
+      "org/gnome/settings-daemon/plugins/media-keys" = {
+        custom-keybindings = [
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal/"
+        ];
+      };
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal" = {
+        binding = "<Super>Return";
+        command = "/run/current-system/sw/bin/kgx";
+        name = "Launch terminal";
       };
       "org/gnome/shell" = {
         disable-user-extensions = false;
 
         enabled-extensions = [
           # builtins
+          "apps-menu@gnome-shell-extensions.gcampax.github.com"
           "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
           "native-window-placement@gnome-shell-extensions.gcampax.github.com"
           "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
@@ -57,9 +82,12 @@ in
         ];
         disabled-extensions = [ ];
       };
+      "org/gnome/shell/app-switcher" = {
+        current-workspace-only = true;
+      };
       "org/gnome/shell/extensions/just-perfection" = {
         accessibility-menu = false;
-        animations = 0;
+        animation = 0;
         app-menu = true;
         app-menu-icon = false;
         dash-icon-size = 32;
@@ -70,7 +98,7 @@ in
         panel-in-overview = true;
         ripple-box = false;
         search = false;
-        show-apps-button = false;
+        show-apps-button = true;
         startup-status = 0;
         theme = true;
         window-demands-attention-focus = true;
@@ -82,11 +110,18 @@ in
     };
 
     # gnome extensions
-    home.packages = with pkgs.gnomeExtensions; [
-      auto-move-windows
-      native-window-placement
-      workspace-indicator
-      just-perfection
+    home.packages = with pkgs; [
+      gnome.gnome-tweaks
+
+      # Extensions
+      ## Builtin
+      gnomeExtensions.applications-menu
+      gnomeExtensions.auto-move-windows
+      gnomeExtensions.native-window-placement
+      gnomeExtensions.workspace-indicator
+
+      ## Extra
+      gnomeExtensions.just-perfection
     ];
   };
 }

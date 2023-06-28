@@ -23,10 +23,11 @@ in
           set --universal fish_greeting
         '';
       };
+
     }
 
     (mkIf impermanence.enable {
-      home.persistence."${impermanence.location}/cache/users/${config.home.username}" = {
+      home.persistence."${impermanence.location}/state/users/${config.home.username}" = {
         files = [
           ".local/share/fish/fish_history"
         ];

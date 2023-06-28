@@ -68,7 +68,7 @@ rec {
 
   mkHomeLib = lib: inputs: lib.extend (_self: _super: inputs.home-manager.lib);
 
-  mkExtraSpecialArgs = systemConfig: { self, pkgs, lib, mylib, inputs, system }: {
+  mkExtraSpecialArgs = systemConfig: args@{ self, pkgs, lib, mylib, inputs, system, ... }: (builtins.removeAttrs args [ "config" "options" "lib" ]) // {
     inherit systemConfig self pkgs mylib system inputs;
     lib = mkHomeLib lib inputs;
   };
