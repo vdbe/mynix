@@ -1,8 +1,10 @@
-{ config, options, lib, mylib, ... }:
+{ config, lib, mylib, ... }:
 
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (mylib) mkBoolOpt;
+
+  inherit (config.mymodules) impermanence;
 
   cfg = config.mymodules.programs.cli.password-store;
 in
@@ -11,8 +13,19 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    programs.password-store.enable = true;
-  };
-}
+  config = mkIf cfg.enable (mkMerge [
+    {
+      programs.password-store.enable = true;
+    }
 
+    (mkIf impermanence.enable {
+      home.persistence."${impermanence.location}/data/users/${config.home.username}" = {
+        removePrefixDirectory = false;
+        allowOther = true;
+        directories = [
+          ".local/share/password-store"
+        ];
+      };
+    })
+  ]);
+}

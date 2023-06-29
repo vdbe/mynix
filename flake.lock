@@ -204,7 +204,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-5W+znqLFDhvgieqh4dLVGGI/5A08PNnoF4PbamABOK4=",
+        "narHash": "sha256-dsVFK8wBvQjQ+Yn/YZwW5W6h0UQqAR/s7M26fgB0Rh8=",
         "path": "./modules/home-manager",
         "type": "path"
       },
@@ -280,7 +280,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-Tly/8IJlBd0ys+E07zzG2F/1Ln9pge1Vp2m12SwODCg=",
+        "narHash": "sha256-zUbbPFKnbHfr+QLM7CDY3TpoFDQpATqGp3371bhyHRI=",
         "path": "./hosts",
         "type": "path"
       },
@@ -292,7 +292,7 @@
     "mynixosmodules": {
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-kuPtXCo2B9MvBiQcEz/OVPfI6r1YrI100DASeh57HcA=",
+        "narHash": "sha256-Rppq1N1qZUgt0st1M4xG6pCUDmxQEpYdSkmuN4SyNF4=",
         "path": "./modules/nixos",
         "type": "path"
       },
@@ -305,7 +305,7 @@
       "flake": false,
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-bhYffTwbbcSYveTy2/z9yFItTzERHOrAAWYy9ztQYeY=",
+        "narHash": "sha256-gwVXkVeuOmVvRP8ipzyd7zZa92m3riHvOe6zI176fW8=",
         "path": "./overlays",
         "type": "path"
       },

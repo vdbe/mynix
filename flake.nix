@@ -187,6 +187,8 @@
 
               # Dev
               sops
+              git-crypt
+              nil
             ]
             ++ optional (disko.packages ? ${system}) disko.packages.${system}.disko;
 

@@ -2,6 +2,7 @@ _:
 let
   modules = [
     ./desktops/gnome.nix
+    ./misc/build-time-secrets.nix
     ./misc/impermanence.nix
     ./misc/nix-path.nix
     ./misc/nix.nix
@@ -24,6 +25,7 @@ let
     ./programs/cli/ripgrep.nix
     ./programs/cli/ssh.nix
     ./programs/cli/starship.nix
+    ./programs/cli/tldr.nix
     ./programs/cli/tmux.nix
     ./programs/cli/translate.nix
     ./programs/cli/yubikey.nix

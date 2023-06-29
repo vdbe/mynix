@@ -1,4 +1,4 @@
-args@{ config, options, lib, mylib, ... }:
+args@{ config, lib, mylib, ... }:
 
 let
   inherit (lib.attrsets) attrByPath;
@@ -39,4 +39,3 @@ in
 
   ]);
 }
-

@@ -1,4 +1,4 @@
-{ config, options, lib, mylib, myconfig, ... }:
+{ config, lib, mylib, myconfig, ... }:
 
 let
   inherit (lib) lists;
@@ -7,13 +7,15 @@ let
 
   inherit (config.mymodules) impermanence;
 
+  gp-gagent-sshSupport = config.mymodules.services.gpg-agent.enableSshSupport;
+
   cfg = config.mymodules.programs.cli.ssh;
 in
 {
   options.mymodules.programs.cli.ssh = {
     enable = mkBoolOpt false;
     localConfig = mkBoolOpt true;
-    pgp = mkBoolOpt config.mymodules.services.gpg-agent.enableSshSupport;
+    pgp = mkBoolOpt gp-gagent-sshSupport;
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -26,7 +28,6 @@ in
         controlPath = "/run/user/%i/ssh-controlmasters_%r@%h:%p";
         controlPersist = "10m";
         extraConfig = ''
-
         '';
 
         matchBlocks = {
@@ -37,6 +38,7 @@ in
             identityFile = mkIf cfg.pgp [ "~/.ssh/pgp.pub" ];
             extraOptions = {
               AddKeysToAgent = "yes";
+              IdentityAgent = mkIf gp-gagent-sshSupport "/run/user/%i/gnupg/S.gpg-agent.ssh";
             };
           };
         };

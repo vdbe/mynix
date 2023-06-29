@@ -1,4 +1,4 @@
-{ config, options, lib, mylib, pkgs, ... }:
+{ config, lib, mylib, pkgs, ... }:
 
 let
   inherit (lib.modules) mkIf;
@@ -23,4 +23,3 @@ in
     home.packages = [ cfg.package ];
   };
 }
-

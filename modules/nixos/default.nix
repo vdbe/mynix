@@ -2,6 +2,7 @@ _:
 let
   modules = [
     ./desktops/gnome.nix
+    ./misc/build-time-secrets.nix
     ./misc/impermanence.nix
     ./misc/nix-path.nix
     ./misc/nix.nix

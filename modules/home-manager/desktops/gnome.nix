@@ -40,6 +40,11 @@ in
         resize-with-right-button = true;
       };
       "org/gnome/desktop/wm/keybindings" = {
+        switch-to-application-1 = [ ];
+        switch-to-application-2 = [ ];
+        switch-to-application-3 = [ ];
+        switch-to-application-4 = [ ];
+
         switch-to-workspace-1 = [ "<Super>1" ];
         switch-to-workspace-2 = [ "<Super>2" ];
         switch-to-workspace-3 = [ "<Super>3" ];
@@ -125,4 +130,3 @@ in
     ];
   };
 }
-
