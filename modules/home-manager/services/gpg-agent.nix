@@ -1,10 +1,9 @@
 { config, lib, mylib, ... }:
 
 let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  inherit (config.mymodules) impermanence;
 
   cfg = config.mymodules.services.gpg-agent;
 in
@@ -15,23 +14,10 @@ in
 
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
-      services.gpg-agent = {
-        enable = true;
-        inherit (cfg) enableSshSupport;
-      };
-    }
-
-    (mkIf impermanence.enable {
-      # NOTE: Maybe state?
-      home.persistence."${impermanence.location}/cache/users/${config.home.username}" = {
-        removePrefixDirectory = false;
-        allowOther = true;
-        directories = [
-          #".gnupg/private-keys-v1.d"
-        ];
-      };
-    })
-  ]);
+  config = mkIf cfg.enable {
+    services.gpg-agent = {
+      enable = true;
+      inherit (cfg) enableSshSupport;
+    };
+  };
 }

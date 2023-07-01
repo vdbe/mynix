@@ -1,4 +1,4 @@
-{ config, options, lib, mylib, ... }:
+{ config, lib, mylib, ... }:
 
 let
   inherit (lib) mkIf;
@@ -15,4 +15,3 @@ in
     programs.jq.enable = true;
   };
 }
-

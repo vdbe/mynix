@@ -1,10 +1,8 @@
-{ config, options, lib, mylib, ... }:
+{ config, lib, mylib, ... }:
 
 let
-  inherit (lib.modules) mkIf mkMerge mkDefault;
+  inherit (lib.modules) mkIf mkDefault;
   inherit (mylib) mkBoolOpt;
-
-  inherit (config.mymodules) impermanence;
 
   cfg = config.mymodules.programs.cli.neovim;
 in
@@ -13,50 +11,38 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
-      programs.neovim = {
-        enable = true;
-        viAlias = true;
-        vimAlias = true;
-        vimdiffAlias = true;
-        withNodeJs = true;
-        withRuby = true;
-        withPython3 = true;
-        defaultEditor = true;
-      };
+  config = mkIf cfg.enable {
+    programs.neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+      withNodeJs = true;
+      withRuby = true;
+      withPython3 = true;
+      defaultEditor = true;
+    };
 
-      mymodules.programs.cli = {
+    mymodules = {
+
+      programs.cli = {
         ripgrep.enable = mkDefault true;
         fd.enable = mkDefault true;
       };
-    }
-
-    (mkIf impermanence.enable {
-      home.persistence."${impermanence.location}/data/users/${config.home.username}" = {
-        removePrefixDirectory = false;
-        allowOther = true;
-        directories = [
+      impermanence = {
+        data.directories = [
           ".config/nvim"
         ];
-      };
-      home.persistence."${impermanence.location}/state/users/${config.home.username}" = {
-        removePrefixDirectory = false;
-        allowOther = true;
-        directories = [
-          ".local/share/nvim"
+        state.directories = [
+          ".local/share/nvim" # NOTE: maybe cache
           ".local/state/nvim"
         ];
-      };
-      home.persistence."${impermanence.location}/cache/users/${config.home.username}" = {
-        removePrefixDirectory = false;
-        allowOther = true;
-        directories = [
+        cache.directories = [
           ".cache/nvim"
         ];
       };
-    })
+    };
+  };
 
-  ]);
+
 }
-

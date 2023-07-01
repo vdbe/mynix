@@ -1,4 +1,4 @@
-{ config, options, lib, mylib, ... }:
+{ config, lib, mylib, ... }:
 
 let
   inherit (lib.modules) mkIf;

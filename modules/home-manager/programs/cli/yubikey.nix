@@ -1,4 +1,4 @@
-args@{ config, options, lib, mylib, pkgs, ... }:
+args@{ config, lib, mylib, pkgs, ... }:
 
 let
   inherit (lib.attrsets) attrByPath;
@@ -20,4 +20,3 @@ in
     ];
   };
 }
-

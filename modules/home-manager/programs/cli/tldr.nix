@@ -10,7 +10,7 @@ in
 {
   options.mymodules.programs.cli.tldr = {
     enable = mkBoolOpt false;
-    package = mkPackageOption pkgs "tldr" { };
+    package = mkPackageOption pkgs "tealdeer" { };
   };
 
   config = mkIf cfg.enable {

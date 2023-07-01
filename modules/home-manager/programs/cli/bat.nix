@@ -1,13 +1,11 @@
-{ config, options, lib, mylib, ... }:
+{ config, lib, mylib, ... }:
 
 let
   inherit (lib) types;
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (lib.attrsets) optionalAttrs;
   inherit (lib.options) literalExpression mkOption;
   inherit (mylib) mkBoolOpt;
-
-  inherit (config.mymodules) impermanence;
 
   cfg = config.mymodules.programs.cli.bat;
 
@@ -37,24 +35,18 @@ in
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
-      programs = {
-        bat = {
-          inherit (cfg) enable extraPackages;
-        };
+  config = mkIf cfg.enable {
+    programs = {
+      bat = {
+        inherit (cfg) enable extraPackages;
       };
-      home.shellAliases = shellAliases;
-    }
+    };
+    home.shellAliases = shellAliases;
 
-    (mkIf impermanence.enable {
-      home.persistence."${impermanence.location}/cache/users/${config.home.username}" = {
-        directories = [
-          ".cache/bat"
-        ];
-        allowOther = true;
-        removePrefixDirectory = false;
-      };
-    })
-  ]);
+    mymodules.impermanence.cache.directories = [
+      ".cache/bat"
+    ];
+  };
+
+
 }

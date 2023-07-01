@@ -1,11 +1,10 @@
-args@{ config, options, lib, mylib, ... }:
+args@{ config, lib, mylib, ... }:
 
 let
   inherit (lib.attrsets) attrByPath;
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  inherit (config.mymodules) impermanence;
 
   cfg = config.mymodules.programs.cli.fish;
 in
@@ -14,27 +13,18 @@ in
     enable = mkBoolOpt (attrByPath [ "systemConfig" "mymodules" "programs" "cli" "fish" "enable" ] false args);
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
-      programs.fish = {
-        enable = true;
-        interactiveShellInit = ''
-          # Disable greeting message
-          set --universal fish_greeting
-        '';
-      };
+  config = mkIf cfg.enable {
+    programs.fish = {
+      enable = true;
+      interactiveShellInit = ''
+        # Disable greeting message
+        set --universal fish_greeting
+      '';
+    };
 
-    }
+    mymodules.impermanence.state.files = [
+      ".local/share/fish/fish_history"
+    ];
 
-    (mkIf impermanence.enable {
-      home.persistence."${impermanence.location}/state/users/${config.home.username}" = {
-        files = [
-          ".local/share/fish/fish_history"
-        ];
-        allowOther = true;
-        removePrefixDirectory = false;
-      };
-    })
-  ]);
+  };
 }
-

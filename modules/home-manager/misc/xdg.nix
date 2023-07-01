@@ -1,10 +1,9 @@
-{ config, options, lib, mylib, ... }:
+{ config, lib, mylib, ... }:
 
 let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  inherit (config.mymodules) impermanence;
   cfg = config.mymodules.xdg;
 in
 {
@@ -12,37 +11,28 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
-      # TODO: impermanence
-      xdg = {
+  config = mkIf cfg.enable {
+    # TODO: impermanence
+    xdg = {
+      enable = true;
+      mime.enable = true;
+      mimeApps.enable = true;
+      userDirs = {
         enable = true;
-        mime.enable = true;
-        mimeApps.enable = true;
-        userDirs = {
-          enable = true;
-          createDirectories = true;
-        };
+        createDirectories = true;
       };
-    }
+    };
 
-    (mkIf impermanence.enable {
-      home.persistence."${impermanence.location}/data/users/${config.home.username}" = {
-        removePrefixDirectory = false;
-        allowOther = true;
-        directories = [
-          "Desktop"
-          "Documents"
-          "Downloads"
-          "Music"
-          "Pictures"
-          "Public"
-          "Templates"
-          "Videos"
-        ];
-      };
-    })
+    mymodules.impermanence.data.directories = [
+      "Desktop"
+      "Documents"
+      "Downloads"
+      "Music"
+      "Pictures"
+      "Public"
+      "Templates"
+      "Videos"
 
-  ]);
+    ];
+  };
 }
-
