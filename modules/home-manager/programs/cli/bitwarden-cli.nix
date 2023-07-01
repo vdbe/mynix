@@ -1,4 +1,4 @@
-{ config, options, lib, mylib, pkgs, ... }:
+{ config, lib, mylib, pkgs, ... }:
 
 let
   inherit (lib.modules) mkIf;
@@ -12,6 +12,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ unstable.bitwarden-cli ];
+    home.packages = with pkgs; [ bitwarden-cli ];
   };
 }

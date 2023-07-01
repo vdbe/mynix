@@ -29,6 +29,7 @@ let
     ./programs/cli/tmux.nix
     ./programs/cli/translate.nix
     ./programs/cli/yubikey.nix
+    ./programs/desktop/bitwarden.nix
     ./programs/desktop/browsers/firefox.nix
     ./programs/desktop/yubikey.nix
     ./services/desktops/flatpak.nix

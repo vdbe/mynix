@@ -1,7 +1,7 @@
-{ config, options, lib, mylib, pkgs, ... }:
+{ config, lib, mylib, pkgs, ... }:
 
 let
-  inherit (lib.modules) mkIf mkDefault mkMerge;
+  inherit (lib.modules) mkIf mkDefault mkMerge mkForce;
   inherit (mylib) mkBoolOpt;
 
   inherit (config.mymodules) impermanence;
@@ -28,19 +28,21 @@ in
 
       services.gnome = {
         gnome-initial-setup.enable = false;
+        gnome-keyring.enable = mkForce false;
       };
 
       environment.gnome.excludePackages = with pkgs; [ gnome-tour ];
     }
     (mkIf impermanence.enable {
-      environment.persistence."${impermanence.location}/data/system" = {
+      environment.persistence."${impermanence.location}/state/system" = {
         inherit (impermanence) hideMounts;
         directories = [
           "/etc/NetworkManager/system-connections"
+          #"/etc/NetworkManager/VPN"
           "/var/lib/bluetooth"
+
         ];
       };
     })
   ]);
 }
-
