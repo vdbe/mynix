@@ -22,16 +22,19 @@ in
         };
       };
 
-      services.xserver.desktopManager.gnome = {
-        enable = true;
+      services = {
+        xserver.desktopManager.gnome = {
+          enable = true;
+        };
+        gnome = {
+          gnome-initial-setup.enable = false;
+          gnome-keyring.enable = mkForce false;
+        };
       };
 
-      services.gnome = {
-        gnome-initial-setup.enable = false;
-        gnome-keyring.enable = mkForce false;
-      };
+      environment.gnome.excludePackages = with pkgs; [ gnome-tour folks ];
+      programs.evolution.enable = false;
 
-      environment.gnome.excludePackages = with pkgs; [ gnome-tour ];
     }
     (mkIf impermanence.enable {
       environment.persistence."${impermanence.location}/state/system" = {

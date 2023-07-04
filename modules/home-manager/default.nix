@@ -31,6 +31,7 @@ let
     ./programs/cli/yubikey.nix
     ./programs/desktop/bitwarden.nix
     ./programs/desktop/browsers/firefox.nix
+    ./programs/desktop/mpv.nix
     ./programs/desktop/yubikey.nix
     ./services/desktops/flatpak.nix
     ./services/gpg-agent.nix

@@ -204,7 +204,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-DZNOzAFKt6x6hYeRrFPQU0UjbtXZLH3wphnaVAEcjiI=",
+        "narHash": "sha256-RtL12je9SOGtbMJ93r8ROeDc0WjZ9rAgyNw1EnPlrLw=",
         "path": "./modules/home-manager",
         "type": "path"
       },
@@ -292,7 +292,7 @@
     "mynixosmodules": {
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-zbZAzCJdxjPUJb9f36YsagztrnkQjiagrFe6CvVX9JA=",
+        "narHash": "sha256-FkQTzEmDAiOpJFR3aaZM3ddUZL29rw+fXlI9fa+eXmY=",
         "path": "./modules/nixos",
         "type": "path"
       },

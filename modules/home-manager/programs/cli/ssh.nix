@@ -1,8 +1,9 @@
 { config, lib, mylib, myconfig, ... }:
 
 let
-  inherit (lib) lists;
+  inherit (lib) types;
   inherit (lib.modules) mkDefault mkIf;
+  inherit (lib.options) mkOption;
   inherit (mylib) mkBoolOpt;
 
   gp-gagent-sshSupport = config.mymodules.services.gpg-agent.enableSshSupport;
@@ -14,18 +15,20 @@ in
     enable = mkBoolOpt false;
     localConfig = mkBoolOpt true;
     pgp = mkBoolOpt gp-gagent-sshSupport;
+    controlMaster = mkOption {
+      type = types.enum [ "no" "yes" "ask" "auto" "autoask" ];
+      default = "no";
+    };
   };
 
   config = mkIf cfg.enable {
     programs.ssh = {
       enable = mkDefault true;
-      includes = lists.optional cfg.localConfig "local_config";
+      includes = mkIf cfg.localConfig [ "local_config" ];
       forwardAgent = false;
-      controlMaster = "auto";
+      inherit (cfg) controlMaster;
       controlPath = "/run/user/%i/ssh-controlmasters_%r@%h:%p";
       controlPersist = "10m";
-      extraConfig = ''
-        '';
 
       matchBlocks = {
         "*" = {

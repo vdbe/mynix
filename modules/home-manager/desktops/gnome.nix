@@ -58,6 +58,10 @@ in
         night-light-enabled = true;
       };
       "org/gnome/settings-daemon/plugins/media-keys" = {
+        home = [ "<Super>e" ];
+        control-center = [ "<Super>i" ];
+        www = [ "<Super>b" ];
+
         custom-keybindings = [
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal/"
         ];
@@ -138,6 +142,26 @@ in
       gnomeExtensions.just-perfection
       gnomeExtensions.appindicator
     ];
+
+    mymodules.impermanence = {
+      cache.directories = [
+        ".cache/dconf"
+        ".cache/gegl-0.4"
+        ".cache/gnome-software"
+        ".cache/gstreamer-1"
+        ".cache/tracker3"
+      ];
+      state = {
+        directories = [
+          ".local/share/gnome-photos"
+          ".local/share/gnome-settings-daemon"
+          ".local/share/gnome-shell"
+          ".local/share/gvfs-metadata"
+          ".local/share/icc"
+          ".local/share/nautilus"
+        ];
+      };
+    };
 
   };
 }
