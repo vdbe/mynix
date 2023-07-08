@@ -32,6 +32,7 @@ let
     ./programs/desktop/bitwarden.nix
     ./programs/desktop/browsers/firefox.nix
     ./programs/desktop/mpv.nix
+    ./programs/desktop/obsidian.nix
     ./programs/desktop/yubikey.nix
     ./services/desktops/flatpak.nix
     ./services/gpg-agent.nix

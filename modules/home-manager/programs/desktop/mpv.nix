@@ -1,6 +1,7 @@
-{ config, lib, mylib, ... }:
+{ config, lib, mylib, pkgs, ... }:
 
 let
+  inherit (lib) lists;
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
@@ -12,9 +13,23 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    programs.mpv = {
-      enable = true;
+  config = mkIf cfg.enable
+    {
+      programs.mpv = {
+        enable = true;
+
+        scripts = with pkgs.mpvScripts; [
+          mpris
+          uosc
+          thumbfast
+        ] ++ lists.optional config.mymodules.desktops.gnome.enable inhibit-gnome;
+
+        config = {
+          # UOSC script
+          osc = false; # required so that the 2 UIs don't fight each other
+          osd-bar = false; # uosc provides its own seeking/volume indicators, so you also don't need this
+          border = false; # uosc will draw its own window controls if you disable window border
+        };
+      };
     };
-  };
 }
