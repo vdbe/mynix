@@ -46,6 +46,11 @@ in
 
         # Set working dir to cwd
         bind-key C-Space attach -c "#{pane_current_path}"
+
+        # Fix colors
+        set -g default-terminal "tmux-256color"
+        set -ag terminal-overrides ",xterm-256color:RGB"
+
       '';
 
       plugins = with pkgs; [
