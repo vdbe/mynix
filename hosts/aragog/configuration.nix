@@ -1,16 +1,13 @@
-args@{ config, pkgs, lib, mylib, inputs, ... }:
+args@{ config, pkgs, mylib, inputs, ... }:
 
 let
-  inherit (lib.attrsets) recursiveUpdate;
-
   inherit (mylib) mkExtraSpecialArgs;
-  buildtimeSecrets = builtins.fromJSON (builtins.readFile ./buildtime-secrets.json.crypt);
 in
 {
   imports =
     [
       # Include the results of the hardware scan.
-      (import ./hardware.nix (recursiveUpdate { inherit buildtimeSecrets; } args))
+      ./hardware.nix
 
       inputs.nixos-hardware.nixosModules.common-cpu-amd
       inputs.nixos-hardware.nixosModules.common-pc-laptop
@@ -23,6 +20,10 @@ in
 
   mymodules = {
     sops.enable = true;
+    buildTimeSecrets = {
+      enable = true;
+      defaultSecretsFile = ./buildtime-secrets.json.crypt;
+    };
     nix.enable = true;
     nix-path = {
       enable = true;
