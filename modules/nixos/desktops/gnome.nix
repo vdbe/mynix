@@ -19,6 +19,7 @@ in
         services = {
           xserver.enable = mkDefault true;
           displayManager.gdm.enable = mkDefault true;
+          pipewire.enable = true;
         };
       };
 

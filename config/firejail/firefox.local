@@ -1,0 +1,8 @@
+# Add the next line to your firefox.local to enable native notifications.
+dbus-user.talk org.freedesktop.Notifications
+# Add the next line to your firefox.local to allow inhibiting screensavers.
+dbus-user.talk org.freedesktop.ScreenSaver
+
+# Add the next line to your firefox.local to allow u2f/securitykey
+# Should be done trough `browser-disable-u2f no` in globals.local but get invalid syntax
+ignore nou2f

@@ -1,7 +1,8 @@
 { config, lib, mylib, ... }:
 
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
+
   inherit (mylib) mkBoolOpt;
 
   cfg = config.mymodules.programs.cli.starship;

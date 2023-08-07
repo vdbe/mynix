@@ -7,13 +7,11 @@ let
     ./misc/nix-path.nix
     ./misc/nix.nix
     ./misc/xdg.nix
-    ./programs/cli/bash.nix
     ./programs/cli/bat.nix
     ./programs/cli/bitwarden-cli.nix
     ./programs/cli/direnv.nix
     ./programs/cli/exa.nix
     ./programs/cli/fd.nix
-    ./programs/cli/fish.nix
     ./programs/cli/fzf.nix
     ./programs/cli/git.nix
     ./programs/cli/gpg.nix
@@ -23,6 +21,9 @@ let
     ./programs/cli/neovim.nix
     ./programs/cli/password-store.nix
     ./programs/cli/ripgrep.nix
+    ./programs/cli/shells/bash.nix
+    ./programs/cli/shells/fish.nix
+    ./programs/cli/shells/nushell.nix
     ./programs/cli/ssh.nix
     ./programs/cli/starship.nix
     ./programs/cli/tldr.nix
@@ -34,7 +35,9 @@ let
     ./programs/desktop/mpv.nix
     ./programs/desktop/obsidian.nix
     ./programs/desktop/yubikey.nix
+    ./programs/firejail.nix
     ./services/desktops/flatpak.nix
+    ./services/desktops/easyeffects.nix
     ./services/gpg-agent.nix
   ];
 

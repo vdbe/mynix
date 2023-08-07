@@ -10,8 +10,10 @@ let
     ./misc/yubikey.nix
     ./programs/cli/bash.nix
     ./programs/cli/fish.nix
+    ./programs/firejail.nix
     ./security/acme.nix
     ./services/desktops/flatpak.nix
+    ./services/desktops/pipewire.nix
     ./services/display-managers/default.nix
     ./services/display-managers/gdm.nix
     ./services/hardware/pcscd.nix

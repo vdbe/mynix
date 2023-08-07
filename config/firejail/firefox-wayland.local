@@ -1,0 +1,6 @@
+# Add the next line to your firefox.local to allow screen sharing under wayland.
+# Also fixes theme
+dbus-user.talk org.freedesktop.portal.Desktop
+# Add the next line to your firefox.local if screen sharing sharing still does not work
+# with the above lines (might depend on the portal implementation).
+#ignore noroot

@@ -4,16 +4,14 @@ let
   inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
 
-  cfg = config.mymodules.programs.cli.fish;
+  cfg = config.mymodules.programs.firejail;
 in
 {
-  options.mymodules.programs.cli.fish = {
+  options.mymodules.programs.firejail = {
     enable = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
-    programs.fish = {
-      enable = true;
-    };
+    programs.firejail.enable = true;
   };
 }

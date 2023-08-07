@@ -22,6 +22,7 @@ in
         clock-show-weekday = true;
         color-scheme = "prefer-dark";
         enable-animations = false;
+        enable-hot-corners = true;
         show-battery-percentage = true;
         monospace-font-name = "IosevkaTerm Nerd Font 10";
       };
@@ -53,6 +54,8 @@ in
       "org/gnome/mutter" = {
         dynamic-workspaces = false;
         edge-tiling = true;
+        workspaces-only-on-primary = true;
+        current-workspace-only = true;
       };
       "org/gnome/settings-daemon/plugins/color" = {
         night-light-enabled = true;
