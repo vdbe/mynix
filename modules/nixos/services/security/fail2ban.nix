@@ -1,4 +1,4 @@
-{ options, config, lib, mylib, ... }:
+{ config, lib, mylib, ... }:
 
 let
   inherit (lib.modules) mkIf;
@@ -21,6 +21,5 @@ in
         overalljails = true;
       };
     };
-
   };
 }

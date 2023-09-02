@@ -22,7 +22,7 @@ rec {
     config.allowUnfree = true;
   };
 
-  mkHost = defaultConfigurationPath: configurationPath: pkgs: specialArgs:
+  mkHostArgs = defaultConfigurationPath: configurationPath: pkgs: specialArgs:
     let
       isDir = pathIsDirectory configurationPath;
       configurationDir = if isDir then configurationPath else (dirOf configurationPath);
@@ -50,7 +50,7 @@ rec {
         # set
         specialArgs;
     in
-    nixosSystem {
+    {
       inherit system;
       specialArgs = { inherit system; } // specialArgs;
       modules = [
@@ -65,6 +65,9 @@ rec {
         configuration
       ];
     };
+
+  mkHost = defaultConfigurationPath: configurationPath: pkgs: specialArgs:
+    nixosSystem (mkHostArgs defaultConfigurationPath configurationPath pkgs specialArgs);
 
   mkHomeLib = lib: inputs: lib.extend (_self: _super: inputs.home-manager.lib);
 

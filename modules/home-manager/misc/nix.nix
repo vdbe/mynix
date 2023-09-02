@@ -48,24 +48,20 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    nix = {
-      extraOptions = ''
-        experimental-features = nix-command flakes
-        min-free = ${toString (100 * 1024 * 1024)}
-        max-free = ${toString (1024 * 1024 * 1024)}
-      '';
+  config.nix = mkIf cfg.enable {
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      min-free = ${toString (100 * 1024 * 1024)}
+      max-free = ${toString (1024 * 1024 * 1024)}
+    '';
 
-      package = pkgs.nix;
+    package = pkgs.nix;
 
-      settings = {
-        trusted-users = [ "root" "@wheel" ];
-        auto-optimise-store = true;
+    settings = {
+      trusted-users = [ "root" "@wheel" ];
+      auto-optimise-store = true;
 
-        inherit (cfg) trusted-public-keys trusted-substituters;
-      };
+      inherit (cfg) trusted-public-keys trusted-substituters;
     };
-
-    #system.stateVersion = vars.stateVersion;
   };
 }

@@ -1,4 +1,4 @@
-{ self, config, pkgs, lib, ... }:
+{ self, config, lib, ... }:
 
 let
   inherit (lib.attrsets) attrByPath;
@@ -43,7 +43,7 @@ in
     #binsh = "${pkgs.dash}/bin/dash";
     #localBinInPath = true;
 
-    systemPackages = with pkgs; [ dash ];
+    #systemPackages = with pkgs; [ dash ];
   };
 
   programs.command-not-found.enable = mkDefault false;
@@ -62,4 +62,3 @@ in
     stateVersion = mkDefault "23.05";
   };
 }
-

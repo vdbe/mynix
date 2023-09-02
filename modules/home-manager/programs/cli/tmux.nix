@@ -13,66 +13,87 @@ in
     enable = mkBoolOpt false;
     plugins = {
       catppuccin = {
-        enable = mkBoolOpt false;
+        enable = mkBoolOpt true;
       };
     };
   };
 
-  config = mkIf cfg.enable {
-    programs.tmux = {
-      enable = true;
-      baseIndex = 1;
-      clock24 = true;
-      customPaneNavigationAndResize = true;
-      historyLimit = 100000;
-      keyMode = "vi";
+  config.programs.tmux = mkIf cfg.enable {
+    enable = true;
+    baseIndex = 1;
+    clock24 = true;
+    aggressiveResize = true;
+    customPaneNavigationAndResize = true;
+    historyLimit = 100000;
+    keyMode = "vi";
 
-      mouse = true;
+    mouse = true;
 
-      sensibleOnTop = true;
+    sensibleOnTop = true;
 
-      prefix = "C-a";
-      shortcut = "a";
+    prefix = "C-a";
+    shortcut = "a";
 
-      shell = if config.mymodules.programs.cli.fish.enable then "${pkgs.fish}/bin/fish" else null;
+    shell = if config.mymodules.programs.cli.fish.enable then "${pkgs.fish}/bin/fish" else null;
 
-      extraConfig = ''
-        # Renumber windows sequentially after closing any of them
-        set-option -g renumber-windows on
+    extraConfig = ''
+      # Renumber windows sequentially after closing any of them
+      set-option -g renumber-windows on
 
-        # Fix titlebar
-        set -g set-titles on
-        set -g set-titles-string "#T"
+      # Fix titlebar
+      set -g set-titles on
+      set -g set-titles-string "#T"
 
-        # Set working dir to cwd
-        bind-key C-Space attach -c "#{pane_current_path}"
+      # Set working dir to cwd
+      bind-key C-Space attach -c "#{pane_current_path}"
 
-        # Fix colors
-        set -g default-terminal "tmux-256color"
-        set -ag terminal-overrides ",xterm-256color:RGB"
+      # Fix colors
+      set -g default-terminal "tmux-256color"
+      set -ag terminal-overrides ",xterm-256color:RGB"
 
-      '';
+      # Resizing
+      set -g window-size latest
+    '';
 
-      plugins = with pkgs; [
-        (mkIf cfg.plugins.catppuccin.enable {
-          plugin = tmuxPlugins.catppuccin;
-          extraConfig = ''
-            #set -g @catppuccin_flavour "mocha"  # Latte, frappe, macchiato, mocha (default)
+    plugins = with pkgs; [
+      (mkIf cfg.plugins.catppuccin.enable {
+        plugin = tmuxPlugins.catppuccin;
+        #plugin = catppuccinGit;
+        extraConfig = ''
+          # Theme
+          #set -g @catppuccin_flavour "mocha"  # Latte, frappe, macchiato, mocha (default)
 
-            set -g @catppuccin_date_time "%d-%m %H:%M"
-            set -g @catppuccin_window_tabs_enabled on
-            set -g @catppuccin_user "on"
-            set -g @catppuccin_host "on"
+          # Window
+          set -g @catppuccin_window_current_text "#{window_name}"
+          set -g @catppuccin_window_default_text "#{window_name}"
 
-            set -g @catppuccin_left_separator "█"
-            set -g @catppuccin_right_separator "█"
-          '';
+          # Status icons
+          set -g @catppuccin_window_status_enable "yes" # yes, no (default)
+          #set -g @catppuccin_window_status_icon_enable "yes" # yes (default), no
+          set -g @catppuccin_icon_window_last " "
+          set -g @catppuccin_icon_window_current " "
+          set -g @catppuccin_icon_window_zoom " "
+          set -g @catppuccin_icon_window_mark "󰃀 "
+          set -g @catppuccin_icon_window_silent "󰂠 "
+          set -g @catppuccin_icon_window_activity "󱐋 "
+          set -g @catppuccin_icon_window_bell "󰂞 "
 
-        })
-      ];
-    };
+          # Modules
+          set -g @catppuccin_status_modules "directory session user host date_time"
+          set -g @catppuccin_date_time_text "%d-%m %H:%M"
 
-    #xdg.configFile."tmux/tmux.conf".source = tmuxConfig + "/tmux.conf";
-    #xdg.configFile."tmux/theme.conf".source = tmuxConfig + "/theme.conf";
+          # Seperators
+          #set -g @catppuccin_window_left_separator "█"
+          #set -g @catppuccin_window_middle_separator "█ "
+          #set -g @catppuccin_window_right_separator "█"
+          set -g @catppuccin_status_left_separator "█"
+          #set -g @catppuccin_status_right_separator "█"
+        '';
+
+      })
+    ];
   };
+
+  #xdg.configFile."tmux/tmux.conf".source = tmuxConfig + "/tmux.conf";
+  #xdg.configFile."tmux/theme.conf".source = tmuxConfig + "/theme.conf";
 }

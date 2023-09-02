@@ -1,7 +1,6 @@
 { config, lib, mylib, mysecrets, ... }:
 let
   inherit (lib) types;
-  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption;
   inherit (mylib) mkBoolOpt;
 
@@ -34,7 +33,8 @@ in
   options.mymodules.buildTimeSecrets = {
     enable = mkBoolOpt false;
     secrets = mkOption {
-      #type = types.attrsOf secretType;
+      type = types.attrsOf secretType;
+      default = { };
     };
 
     default = mkOption {
@@ -48,7 +48,4 @@ in
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    { }
-  ]);
 }

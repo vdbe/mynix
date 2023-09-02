@@ -11,7 +11,7 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    programs.jq.enable = true;
+  config.programs.jq = mkIf cfg.enable {
+    enable = true;
   };
 }

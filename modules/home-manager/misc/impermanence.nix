@@ -9,7 +9,7 @@ let
 
   systemImpermanence = attrByPath [ "systemConfig" "mymodules" "impermanence" ] { } args;
 
-  inherit (config.home) username;
+  inherit (config.home) username homeDirectory;
 
   cfg = config.mymodules.impermanence;
 in
@@ -94,7 +94,7 @@ in
         allowOther = mkBoolOpt cfg.allowOther;
         removePrefixDirectory = mkBoolOpt cfg.removePrefixDirectory;
         location = mkOption {
-          default = "${cfg.location}/data/users/${username}";
+          default = "${cfg.location}/data/users/${username}${homeDirectory}";
           type = types.str;
         };
         inherit files directories;
@@ -103,7 +103,7 @@ in
         allowOther = mkBoolOpt cfg.allowOther;
         removePrefixDirectory = mkBoolOpt cfg.removePrefixDirectory;
         location = mkOption {
-          default = "${cfg.location}/state/users/${username}";
+          default = "${cfg.location}/state/users/${username}${homeDirectory}";
           type = types.str;
         };
         inherit files directories;
@@ -112,7 +112,7 @@ in
         allowOther = mkBoolOpt cfg.allowOther;
         removePrefixDirectory = mkBoolOpt cfg.removePrefixDirectory;
         location = mkOption {
-          default = "${cfg.location}/cache/users/${username}";
+          default = "${cfg.location}/cache/users/${username}${homeDirectory}";
           type = types.str;
         };
         inherit files directories;

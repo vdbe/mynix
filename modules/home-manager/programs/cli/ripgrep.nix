@@ -13,13 +13,15 @@ in
     package = mkPackageOption pkgs "ripgrep" { };
   };
 
-  config = mkIf cfg.enable {
-    # TODO: Not yet supported in 23.05
-    # programs.ripgrep = {
-    #   inherit (cfg) package;
-    #   enable = true;
-    # };
+  config.home.packages = mkIf cfg.enable [ cfg.package ];
 
-    home.packages = [ cfg.package ];
-  };
+  # config = mkIf cfg.enable {
+  #   # TODO: Not yet supported in 23.05
+  #   # programs.ripgrep = {
+  #   #   inherit (cfg) package;
+  #   #   enable = true;
+  #   # };
+  #
+  #   home.packages = [ cfg.package ];
+  # };
 }

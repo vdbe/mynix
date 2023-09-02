@@ -11,7 +11,5 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [ bitwarden-cli ];
-  };
+  config.home.packages = mkIf cfg.enable (with pkgs; [ bitwarden-cli ]);
 }

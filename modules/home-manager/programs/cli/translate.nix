@@ -11,7 +11,7 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    programs.translate-shell.enable = true;
+  config.programs.translate-shell = mkIf cfg.enable {
+    enable = true;
   };
 }

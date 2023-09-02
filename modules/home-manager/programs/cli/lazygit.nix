@@ -11,7 +11,7 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    programs.lazygit.enable = true;
+  config.programs.lazygit = mkIf cfg.enable {
+    enable = true;
   };
 }

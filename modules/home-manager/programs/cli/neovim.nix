@@ -24,7 +24,6 @@ in
     };
 
     mymodules = {
-
       programs.cli = {
         ripgrep.enable = mkDefault true;
         fd.enable = mkDefault true;

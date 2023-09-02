@@ -1,28 +1,36 @@
 { config, lib, mylib, ... }:
 
 let
-  inherit (lib.modules) mkIf mkDefault mkMerge;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (mylib) mkBoolOpt;
 
   inherit (config.mymodules) impermanence;
 
-  cfg = config.mymodules.services.flatpak;
+  cfg = config.mymodules.virtualisation.docker;
 in
 {
-  options.mymodules.services.flatpak = {
+  options.mymodules.virtualisation.docker = {
     enable = mkBoolOpt false;
+    autoPrune = mkBoolOpt true;
+    enableOnBoot = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable (mkMerge [
     {
-      services.flatpak.enable = mkDefault true;
-      xdg.portal.enable = mkDefault true;
+      virtualisation.docker = {
+        enable = true;
+        inherit (cfg) enableOnBoot;
+        autoPrune = {
+          enable = cfg.autoPrune;
+        };
+      };
     }
+
     (mkIf impermanence.enable {
       environment.persistence."${impermanence.location}/state/system" = {
         inherit (impermanence) hideMounts;
         directories = [
-          "/var/lib/flatpak"
+          "/var/lib/docker"
         ];
       };
     })

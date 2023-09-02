@@ -1,10 +1,8 @@
 { config, lib, mylib, pkgs, ... }:
 
 let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (mylib) mkBoolOpt;
-
-  inherit (config.mymodules) impermanence;
 
   cfg = config.mymodules.programs.desktop.bitwarden;
 in
@@ -13,22 +11,15 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable
-    (mkMerge [
-      {
-        mymodules.programs.cli.bitwarden-cli.enable = true;
+  config = mkIf cfg.enable {
+    mymodules = {
+      programs.cli.bitwarden-cli.enable = true;
+      impermanence.state.directories = [
+        ".config/Bitwarden"
+      ];
+    };
 
-        home.packages = with pkgs; [ bitwarden ];
-      }
-      (mkIf impermanence.enable {
-        home.persistence."${impermanence.location}/state/users/${config.home.username}" = {
-          removePrefixDirectory = false;
-          allowOther = true;
-          directories = [
-            ".config/Bitwarden"
-          ];
-        };
-
-      })
-    ]);
+    home.packages = with pkgs; [ bitwarden ];
+  }
+  ;
 }

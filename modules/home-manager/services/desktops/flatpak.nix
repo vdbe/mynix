@@ -12,15 +12,13 @@ in
     enable = mkBoolOpt (attrByPath [ "systemConfig" "mymodules" "services" "flatpak" "enable" ] false args);
   };
 
-  config = mkIf cfg.enable {
-    mymodules.impermanence = {
-      state.directories = [
-        ".local/share/flatpak"
-        ".var" # contains cache, config and data for a flatpak
-      ];
-      cache.directories = [
-        ".cache/flatpak"
-      ];
-    };
+  config.mymodules.impermanence = mkIf cfg.enable {
+    state.directories = [
+      ".local/share/flatpak"
+      ".var" # contains cache, config and data for a flatpak
+    ];
+    cache.directories = [
+      ".cache/flatpak"
+    ];
   };
 }

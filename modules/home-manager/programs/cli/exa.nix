@@ -55,7 +55,6 @@ in
     }
 
     (mkIf cfg.enableAliases {
-
       home.shellAliases = {
         lp = "ll --octal-permissions";
       };

@@ -13,10 +13,8 @@ in
     enable = mkBoolOpt (attrByPath [ "systemConfig" "mymodules" "yubikey" "enable" ] false args);
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      yubikey-manager
-      yubikey-personalization
-    ];
-  };
+  config.home.packages = mkIf cfg.enable (with pkgs; [
+    yubikey-manager
+    yubikey-personalization
+  ]);
 }

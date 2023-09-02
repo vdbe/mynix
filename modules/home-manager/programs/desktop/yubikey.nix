@@ -12,10 +12,8 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      yubikey-personalization-gui
-      yubioath-flutter
-    ];
-  };
+  config.home.packages = mkIf cfg.enable (with pkgs; [
+    yubikey-personalization-gui
+    yubioath-flutter
+  ]);
 }

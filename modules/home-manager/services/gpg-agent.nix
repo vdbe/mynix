@@ -14,10 +14,8 @@ in
 
   };
 
-  config = mkIf cfg.enable {
-    services.gpg-agent = {
-      enable = true;
-      inherit (cfg) enableSshSupport;
-    };
+  config.services.gpg-agent = mkIf cfg.enable {
+    enable = true;
+    inherit (cfg) enableSshSupport;
   };
 }

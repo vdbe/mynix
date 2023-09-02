@@ -5,13 +5,12 @@ let
   inherit (lib.options) mkOption;
   inherit (mylib) mkBoolOpt;
 
-  inherit (inputs) sops-nix;
   inherit (config.mymodules) impermanence;
 
   cfg = config.mymodules.sops;
 in
 {
-  imports = [ sops-nix.nixosModules.sops ];
+  imports = [ inputs.sops-nix.nixosModules.sops ];
 
   options.mymodules.sops = {
     enable = mkBoolOpt false;

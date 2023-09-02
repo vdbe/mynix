@@ -1,7 +1,6 @@
 { config, lib, mylib, mysecrets, ... }:
 let
   inherit (lib) types;
-  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption;
   inherit (mylib) mkBoolOpt;
 
@@ -47,8 +46,4 @@ in
       type = types.path;
     };
   };
-
-  config = mkIf cfg.enable (mkMerge [
-    { }
-  ]);
 }

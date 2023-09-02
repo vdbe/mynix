@@ -24,18 +24,22 @@ in
     # TODO: option to append to nixPath
   };
 
-  config = mkIf cfg.enable {
-    #nixpkgs.config = {
-    #  # TODO: Figure this out
-    #  allowUnfreePredicate = _: true;
-    #  allowUnfree = true;
-    #  overlays = pkgs.overlays;
-    #};
-
-    home = {
-      sessionVariables = {
-        NIX_PATH = concatStringsSep ":" nixPath;
-      };
-    };
+  config.home.sessionVariables = mkIf cfg.enable {
+    NIX_PATH = concatStringsSep ":" nixPath;
   };
+
+  # config = mkIf cfg.enable {
+  #   #nixpkgs.config = {
+  #   #  # TODO: Figure this out
+  #   #  allowUnfreePredicate = _: true;
+  #   #  allowUnfree = true;
+  #   #  overlays = pkgs.overlays;
+  #   #};
+  #
+  #   home = {
+  #     sessionVariables = {
+  #       NIX_PATH = concatStringsSep ":" nixPath;
+  #     };
+  #   };
+  # };
 }

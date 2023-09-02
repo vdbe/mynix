@@ -11,9 +11,5 @@ in
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      fd
-    ];
-  };
+  config.home.packages = mkIf cfg.enable (with pkgs; [ fd ]);
 }
