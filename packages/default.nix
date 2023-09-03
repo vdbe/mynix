@@ -13,6 +13,8 @@ let
     test123 = pkgs.callPackage ./test123 { };
     testabc = pkgs.callPackage ./testabc { inherit test123; };
 
+    wait-online = pkgs.callPackage ./wait-online { };
+
     fennel = pkgs.callPackage ./fennel { };
     maelstrom = pkgs.callPackage ./maelstrom { };
   };

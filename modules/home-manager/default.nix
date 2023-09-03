@@ -34,6 +34,7 @@ let
     ./programs/desktop/browsers/firefox.nix
     ./programs/desktop/mpv.nix
     ./programs/desktop/obsidian.nix
+    ./programs/desktop/vscode.nix
     ./programs/desktop/yubikey.nix
     ./programs/firejail.nix
     ./services/desktops/flatpak.nix
